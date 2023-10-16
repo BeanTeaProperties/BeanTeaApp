@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BeanTea.RentingPage"
+             Title="RentingPage"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials">
+    <VerticalStackLayout>
+        <Label 
+            Text="You Have Gotten to the Renting Page"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />        
+        <Label 
+            Text="Looking for Gaf?"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <maps:Map MapType="Street" x:Name="map" >
+            <x:Arguments>
+                <MapSpan>
+                    <x:Arguments>
+                        <sensors:Location>
+                            <x:Arguments>
+                                <x:Double></x:Double>
+                                <x:Double></x:Double>
+                            </x:Arguments>
+                        </sensors:Location>
+                        <x:Double></x:Double>
+                        <x:Double></x:Double>
+                    </x:Arguments>
+                </MapSpan>
+            </x:Arguments>
+        </maps:Map>
+        <Button
+           x:Name="SearchAreaButton"
+           Text="Search Area"            
+           Clicked="OnSearchAreaButtonClicked"
+           HorizontalOptions="Start" />
+        <Button
+            x:Name="BackButton"
+            Text="Renting"            
+            Clicked="OnBackButtonClicked"
+            HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>
