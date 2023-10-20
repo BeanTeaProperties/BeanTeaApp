@@ -1,16 +1,22 @@
 namespace BeanTea;
 
+using Android.Gms.Maps;
 using Microsoft.Maui.Maps;
+using static Android.Icu.Text.Transliterator;
+using static Android.Provider.CallLog;
 using Map = Microsoft.Maui.Controls.Maps.Map;
+using Microsoft.Maui.Controls;
+
+
 public partial class RentingPage : ContentPage
 {
     public RentingPage()
 	{
         Map map = new Map()
 		{
-			MapType = MapType.Street,
-			IsShowingUser = true
+			MapType = MapType.Street		
         };
+
         InitializeComponent();
 	}  
 
@@ -19,15 +25,26 @@ public partial class RentingPage : ContentPage
 		await Navigation.PopAsync();
 	}
 
-	private void OnSearchAreaButtonClicked(object sender, EventArgs e)
+	private async void OnSearchAreaButtonClicked(object sender, EventArgs e)
 	{
-		Location location = new Location(49.28374145586325, -123.13921578560719);
-		MapSpan mapSpan = new MapSpan(location, 0.01, 0.01);
+        string searchTerm = searchEntry.Text;
+        LblLoadingSearch.Text = $"Searching for {searchTerm}...";
 
-		Map map = new Map(mapSpan)
-		{
-            MapType = MapType.Street
-        };
-        InitializeComponent();
+		var locations = await Geocoding.GetLocationsAsync(searchTerm);
+        var location = locations?.FirstOrDefault();
+
+        //if (location != null && location.Any())
+        //{
+        //    var locations = location.First();
+        //    var position = new Position(locations.Latitude, locations.Longitude);
+
+        //    // Center the map on the found location
+        //    map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(1)));
+        //}
+        //else
+        //{
+        //    // Handle case where no location is found
+        //    // You could display an error message to the user
+        //}
     }
 }

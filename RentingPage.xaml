@@ -6,39 +6,20 @@
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials">
     <VerticalStackLayout>
-        <Label 
-            Text="You Have Gotten to the Renting Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />        
-        <Label 
-            Text="Looking for Gaf?"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <maps:Map MapType="Street" x:Name="map" >
-            <x:Arguments>
-                <MapSpan>
-                    <x:Arguments>
-                        <sensors:Location>
-                            <x:Arguments>
-                                <x:Double></x:Double>
-                                <x:Double></x:Double>
-                            </x:Arguments>
-                        </sensors:Location>
-                        <x:Double></x:Double>
-                        <x:Double></x:Double>
-                    </x:Arguments>
-                </MapSpan>
-            </x:Arguments>
-        </maps:Map>
+        
+        <maps:Map MapType="Street" x:Name="map" MaximumHeightRequest="400"/>
+
+        <Slider x:Name="slider" Maximum="100" Minimum="0" Value="5" />
+
+        <Entry Placeholder="Search..." x:Name="searchEntry" />
+
         <Button
            x:Name="SearchAreaButton"
            Text="Search Area"            
            Clicked="OnSearchAreaButtonClicked"
            HorizontalOptions="Start" />
-        <Button
-            x:Name="BackButton"
-            Text="Renting"            
-            Clicked="OnBackButtonClicked"
-            HorizontalOptions="Center" />
+
+        <Label Text="" x:Name="LblLoadingSearch"/>   
+
     </VerticalStackLayout>
 </ContentPage>
