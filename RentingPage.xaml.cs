@@ -1,9 +1,9 @@
 namespace BeanTea;
 
-using Android.Gms.Maps;
+//using Android.Gms.Maps;
 using Microsoft.Maui.Maps;
-using static Android.Icu.Text.Transliterator;
-using static Android.Provider.CallLog;
+///using static Android.Icu.Text.Transliterator;
+///using static Android.Provider.CallLog;
 using Map = Microsoft.Maui.Controls.Maps.Map;
 using Microsoft.Maui.Controls;
 
