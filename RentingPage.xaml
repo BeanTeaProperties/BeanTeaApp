@@ -25,17 +25,18 @@
                 </MapSpan>
             </x:Arguments>            
         </maps:Map>
+        <Label Text="Where Are you looking?" />
         <Slider x:Name="slider" Maximum="100" Minimum="0" Value="5" />
+
+        <Label Text="" x:Name="LblLoadingSearch"/>
 
         <Entry Placeholder="Search..." x:Name="searchEntry" />
 
         <Button
-           x:Name="SearchAreaButton"
-           Text="Search Area"            
-           Clicked="OnSearchAreaButtonClicked"
-           HorizontalOptions="Start" />
-
-        <Label Text="" x:Name="LblLoadingSearch"/>   
+         x:Name="SearchAreaButton"
+         Text="Search Area"            
+         Clicked="OnSearchAreaButtonClicked"
+         HorizontalOptions="Start" />
 
     </VerticalStackLayout>
 </ContentPage>

@@ -29,8 +29,8 @@ public partial class RentingPage : ContentPage
         string searchTerm = searchEntry.Text;
         LblLoadingSearch.Text = $"Searching for {searchTerm}...";
 
-		var locations = await Geocoding.GetLocationsAsync(searchTerm);
-        var location = locations?.FirstOrDefault();
+        //var locations = await Geocoding.GetLocationsAsync(searchTerm);
+        //      var location = locations?.FirstOrDefault();
 
         //if (location != null && location.Any())
         //{
