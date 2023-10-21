@@ -12,10 +12,9 @@ public partial class RentingPage : ContentPage
 {
     public RentingPage()
 	{
-        Map map = new Map()
-		{
-			MapType = MapType.Street		
-        };
+        //Location location = new Location(36.9628066, -122.0194722);
+        //MapSpan mapSpan = new MapSpan(location, 0.01, 0.01);
+        //Map maps = new Map(mapSpan);
 
         InitializeComponent();
 	}  

@@ -6,9 +6,25 @@
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials">
     <VerticalStackLayout>
-        
-        <maps:Map MapType="Street" x:Name="map" MaximumHeightRequest="400"/>
 
+        <maps:Map MapType="Street" x:Name="map" MaximumHeightRequest="400">
+            <x:Arguments>
+                <MapSpan>
+                    <x:Arguments>
+                        <sensors:Location>
+                            <x:Arguments>                                
+                                <!--<x:Double>49.2901</x:Double>
+                                <x:Double>-123.1376</x:Double>-->
+                                <x:Double>49.2901</x:Double>
+                                <x:Double>-123.1376</x:Double>
+                            </x:Arguments>
+                        </sensors:Location>
+                        <x:Double>0.01</x:Double>
+                        <x:Double>0.01</x:Double>
+                    </x:Arguments>
+                </MapSpan>
+            </x:Arguments>            
+        </maps:Map>
         <Slider x:Name="slider" Maximum="100" Minimum="0" Value="5" />
 
         <Entry Placeholder="Search..." x:Name="searchEntry" />
