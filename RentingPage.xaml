@@ -7,36 +7,65 @@
              xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials">
     <VerticalStackLayout>
 
-        <maps:Map MapType="Street" x:Name="map" MaximumHeightRequest="400">
+        <maps:Map MapType="Street" x:Name="map" MaximumHeightRequest="400" MapClicked="OnMapTapped">
             <x:Arguments>
                 <MapSpan>
                     <x:Arguments>
                         <sensors:Location>
-                            <x:Arguments>                                
+                            <x:Arguments>
                                 <!--<x:Double>49.2901</x:Double>
                                 <x:Double>-123.1376</x:Double>-->
                                 <x:Double>49.2901</x:Double>
                                 <x:Double>-123.1376</x:Double>
                             </x:Arguments>
                         </sensors:Location>
-                        <x:Double>0.01</x:Double>
-                        <x:Double>0.01</x:Double>
+                        <x:Double>0.35</x:Double>
+                        <x:Double>0.35</x:Double>
                     </x:Arguments>
                 </MapSpan>
-            </x:Arguments>            
+            </x:Arguments>
         </maps:Map>
-        <Label Text="Where Are you looking?" />
-        <Slider x:Name="slider" Maximum="100" Minimum="0" Value="5" />
+        
+        <Label Text=""/>
+        <Label Text=""/>
 
-        <Label Text="" x:Name="LblLoadingSearch"/>
 
-        <Entry Placeholder="Search..." x:Name="searchEntry" />
+        <Label Text="Select an Area" FontSize="Medium" VerticalOptions="Center"  HorizontalOptions="Center" />
+        <Label Text=""/>
+
+        <Slider x:Name="SearchSlider" Maximum="10000" Minimum="0" Value="5" ValueChanged="Slider_ValueChanged" />
+
+        <Label Text=""/>
+        <Label Text=""/>
+
+        <Label Text="What is your Budget?" FontSize="Medium" x:Name="lblBudget" VerticalOptions="Center" HorizontalOptions="Center" />
+        <Label Text=""/>
+        
+        <Slider x:Name="PriceSlider" Maximum="10000" Minimum="0" Value="5" ValueChanged="BudgetSlider_ValueChanged" />
+
+        <Label Text=""/>
+
+        <Label Text=""/>
+
+        <!--<Entry Placeholder="Search..." x:Name="searchEntry" />-->
 
         <Button
          x:Name="SearchAreaButton"
-         Text="Search Area"            
+         Text="Search Area"      
+         VerticalOptions="Center"
+         HorizontalOptions="Center" 
          Clicked="OnSearchAreaButtonClicked"
-         HorizontalOptions="Start" />
+         />
+
+        <Label Text=""/>
+
+        <Button
+         x:Name="WatchAreaButton"
+         Text="Watch Area"         
+         VerticalOptions="Center"
+         HorizontalOptions="Center" 
+         Clicked="OnSearchAreaButtonClicked"
+        />
 
     </VerticalStackLayout>
 </ContentPage>
