@@ -22,12 +22,8 @@ public partial class RentingPage : ContentPage
         InitializeComponent();
 	}  
 
-    private async void OnBackButtonClicked(object sender, EventArgs e)
-	{
-		await Navigation.PopAsync();
-	}
 
-	private async void OnSearchAreaButtonClicked(object sender, EventArgs e)
+    private async void OnSearchAreaButtonClicked(object sender, EventArgs e)
 	{
         //string searchTerm = searchEntry.Text;
         //LblLoadingSearch.Text = $"Searching for {searchTerm}...";
@@ -53,7 +49,21 @@ public partial class RentingPage : ContentPage
     private void OnMapTapped(object sender, MapClickedEventArgs e)
     {
         selectedLocation = e.Location;
+
+        var radius = new Circle
+        {
+            Center = selectedLocation,
+            Radius = Distance.FromMeters(SearchSlider.Value),
+            StrokeColor = Color.FromHex("#88FF0000"),
+            FillColor = Color.FromHex("#88FFC0CB"),
+            StrokeWidth = 2
+        };
+
+        map.MapElements.Clear();
+        map.MapElements.Add(radius);
     }
+
+
 
     private void BudgetSlider_ValueChanged(object sender, ValueChangedEventArgs e)
     {
