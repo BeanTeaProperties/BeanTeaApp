@@ -1,48 +1,40 @@
 namespace BeanTea;
 
-//using Android.Gms.Maps;
 using Microsoft.Maui.Maps;
-///using static Android.Icu.Text.Transliterator;
-///using static Android.Provider.CallLog;
 using Map = Microsoft.Maui.Controls.Maps.Map;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Maps;
+using MauiAuth0App.Auth0;
 
 public partial class RentingPage : ContentPage
 {
     Location selectedLocation;
+    private readonly Auth0Client auth0Client;
 
-
-    public RentingPage()
-	{
-        //Location location = new Location(36.9628066, -122.0194722);
-        //MapSpan mapSpan = new MapSpan(location, 0.01, 0.01);
-        // Map maps = new Map();
-       
-        InitializeComponent();
-	}  
+    public RentingPage(Auth0Client client)
+    {       
+        InitializeComponent();        
+        auth0Client = client;
+    }  
 
 
     private async void OnSearchAreaButtonClicked(object sender, EventArgs e)
 	{
-        //string searchTerm = searchEntry.Text;
-        //LblLoadingSearch.Text = $"Searching for {searchTerm}...";
+        
+    }
 
-        //var locations = await Geocoding.GetLocationsAsync(searchTerm);
-        //      var location = locations?.FirstOrDefault();
+    private async void OnLoginClicked(object sender, EventArgs e)
+    {
+        var loginResult = await auth0Client.LoginAsync();
 
-        //if (location != null && location.Any())
+        //if (!loginResult.IsError)
         //{
-        //    var locations = location.First();
-        //    var position = new Position(locations.Latitude, locations.Longitude);
-
-        //    // Center the map on the found location
-        //    map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromKilometers(1)));
+        //    LoginView.IsVisible = false;
+        //    HomeView.IsVisible = true;
         //}
         //else
         //{
-        //    // Handle case where no location is found
-        //    // You could display an error message to the user
+        //    await DisplayAlert("Error", loginResult.ErrorDescription, "OK");
         //}
     }
 

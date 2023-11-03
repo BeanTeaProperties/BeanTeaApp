@@ -48,7 +48,15 @@
         <Label Text=""/>
 
         <!--<Entry Placeholder="Search..." x:Name="searchEntry" />-->
+        <Button 
+          x:Name="LoginBtn"
+          Text="Log In"
+          SemanticProperties.Hint="Click to log in"
+          Clicked="OnLoginClicked"
+          HorizontalOptions="Center" />
 
+        <Label Text=""></Label>
+        
         <Button
          x:Name="SearchAreaButton"
          Text="Search Area"      
@@ -66,6 +74,8 @@
          HorizontalOptions="Center" 
          Clicked="OnSearchAreaButtonClicked"
         />
+
+       
 
     </VerticalStackLayout>
 </ContentPage>
