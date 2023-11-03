@@ -6,39 +6,66 @@
              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials">
     <VerticalStackLayout>
-        <Label 
-            Text="You Have Gotten to the Renting Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />        
-        <Label 
-            Text="Looking for Gaf?"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <maps:Map MapType="Street" x:Name="map" >
+
+        <maps:Map MapType="Street" x:Name="map" MaximumHeightRequest="400" MapClicked="OnMapTapped">
             <x:Arguments>
                 <MapSpan>
                     <x:Arguments>
                         <sensors:Location>
                             <x:Arguments>
-                                <x:Double></x:Double>
-                                <x:Double></x:Double>
+                                <!--<x:Double>49.2901</x:Double>
+                                <x:Double>-123.1376</x:Double>-->
+                                <x:Double>49.2901</x:Double>
+                                <x:Double>-123.1376</x:Double>
                             </x:Arguments>
                         </sensors:Location>
-                        <x:Double></x:Double>
-                        <x:Double></x:Double>
+                        <x:Double>0.35</x:Double>
+                        <x:Double>0.35</x:Double>
                     </x:Arguments>
                 </MapSpan>
             </x:Arguments>
         </maps:Map>
+        
+        <Label Text=""/>
+        <Label Text=""/>
+
+
+        <Label Text="Select an Area" FontSize="Medium" VerticalOptions="Center"  HorizontalOptions="Center" />
+        <Label Text=""/>
+
+        <Slider x:Name="SearchSlider" Maximum="10000" Minimum="0" Value="5" ValueChanged="Slider_ValueChanged" WidthRequest="350" />
+
+        <Label Text=""/>
+        <Label Text=""/>
+
+        <Label Text="Your Max Monthly Budget?" FontSize="Medium" x:Name="lblBudget" VerticalOptions="Center" HorizontalOptions="Center" />
+        <Label Text=""/>
+
+        <Slider x:Name="PriceSlider" Maximum="10000" Minimum="0" Value="5" ValueChanged="BudgetSlider_ValueChanged" WidthRequest="350" />
+
+        <Label Text=""/>
+
+        <Label Text=""/>
+
+        <!--<Entry Placeholder="Search..." x:Name="searchEntry" />-->
+
         <Button
-           x:Name="SearchAreaButton"
-           Text="Search Area"            
-           Clicked="OnSearchAreaButtonClicked"
-           HorizontalOptions="Start" />
+         x:Name="SearchAreaButton"
+         Text="Search Area"      
+         VerticalOptions="Center"
+         HorizontalOptions="Center" 
+         Clicked="OnSearchAreaButtonClicked"
+         />
+
+        <Label Text=""/>
+
         <Button
-            x:Name="BackButton"
-            Text="Renting"            
-            Clicked="OnBackButtonClicked"
-            HorizontalOptions="Center" />
+         x:Name="WatchAreaButton"
+         Text="Watch Area"         
+         VerticalOptions="Center"
+         HorizontalOptions="Center" 
+         Clicked="OnSearchAreaButtonClicked"
+        />
+
     </VerticalStackLayout>
 </ContentPage>
