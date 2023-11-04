@@ -8,7 +8,7 @@ public class Auth0ClientOptions
     public Auth0ClientOptions()
     {
         Scope = "openid";
-        RedirectUri = "com.beantea.beantea://lenders.auth0.com/android/YOUR_ANDROID_PACKAGE_NAME/callback";
+        RedirectUri = "myapp://callback";
         Browser = new WebBrowserAuthenticator();
     }
 

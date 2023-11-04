@@ -32,7 +32,7 @@ namespace BeanTea
                 Domain = "lenders.auth0.com",
                 ClientId = "w1LO07P1OsVqvRLGwGGa5X90TG4lTY8l",
                 Scope = "openid profile",
-                RedirectUri = "com.beantea.beantea://lenders.auth0.com/android/YOUR_ANDROID_PACKAGE_NAME/callback"
+                RedirectUri = "myapp://callback"
             }));
 
             return builder.Build();

@@ -1,5 +1,6 @@
 ﻿using IdentityModel.OidcClient;
 using MauiAuth0App.Auth0;
+using Newtonsoft.Json;
 
 namespace BeanTea
 {
@@ -31,6 +32,9 @@ namespace BeanTea
         {
             var loginResult = await auth0Client.LoginAsync();
 
+            lblSignUserName.Text = loginResult.User.Identity.Name;
+            SignOutBtn.IsVisible = true;
+
             //if (!loginResult.IsError)
             //{
             //    LoginView.IsVisible = false;
@@ -42,6 +46,22 @@ namespace BeanTea
             //}
         }
 
+        private async void OnLogoutClicked(object sender, EventArgs e)
+        {
+            var logoutResult = await auth0Client.LogoutAsync();
+
+            lblSignUserName.Text = "";
+            SignOutBtn.IsVisible = false;
+            //if (!logoutResult.IsError)
+            //{
+            //    HomeView.IsVisible = false;
+            //    LoginView.IsVisible = true;
+            //}
+            //else
+            //{
+            //    await DisplayAlert("Error", logoutResult.ErrorDescription, "OK");
+            //}
+        }
 
         private async void OnRentingBtnClicked(object sender, EventArgs e)
         {
