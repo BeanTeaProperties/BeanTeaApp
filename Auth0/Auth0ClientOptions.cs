@@ -8,7 +8,7 @@ public class Auth0ClientOptions
     public Auth0ClientOptions()
     {
         Scope = "openid";
-        RedirectUri = "myapp://callback";
+        RedirectUri = "com.companyname.beantea://callback";
         Browser = new WebBrowserAuthenticator();
     }
 
