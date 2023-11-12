@@ -1,4 +1,5 @@
-﻿using MauiAuth0App.Auth0;
+﻿using BeanTea.Auth0;
+using MauiAuth0App.Auth0;
 using Microsoft.Extensions.Logging;
 
 namespace BeanTea
@@ -33,8 +34,10 @@ namespace BeanTea
                 ClientId = "w1LO07P1OsVqvRLGwGGa5X90TG4lTY8l",
                 Scope = "openid profile",
                 //RedirectUri = "myapp://callback"
-                RedirectUri = "beantea://callback"
-            }));
+                RedirectUri = "beantea://callback",
+                Browser = new WebBrowserAuthenticator()
+
+        }));
 
             return builder.Build();
         }

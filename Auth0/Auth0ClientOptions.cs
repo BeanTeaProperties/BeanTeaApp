@@ -7,9 +7,9 @@ public class Auth0ClientOptions
 {
     public Auth0ClientOptions()
     {
-        Scope = "openid";
-        RedirectUri = "beantea://callback";
-        Browser = new WebBrowserAuthenticator();
+        //Scope = "openid";
+        //RedirectUri = "beantea://callback";
+        //Browser = new WebBrowserAuthenticator();
     }
 
     public string Domain { get; set; }
