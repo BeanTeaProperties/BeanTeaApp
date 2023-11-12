@@ -1,71 +1,77 @@
 ﻿using IdentityModel.OidcClient;
 using MauiAuth0App.Auth0;
 using Newtonsoft.Json;
+using Microsoft.Maui.Maps;
+using Map = Microsoft.Maui.Controls.Maps.Map;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Maps;
 
 namespace BeanTea
 {
     public partial class MainPage : ContentPage
     {
         int count = 0;
+        private Location selectedLocation;
         private readonly Auth0Client auth0Client;
 
         public MainPage(Auth0Client client)
         {
+
             InitializeComponent();
             auth0Client = client;
-            //auth0Client = client;
+       
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void OnMapTapped(object sender, MapClickedEventArgs e)
         {
-            count++;
+            selectedLocation = e.Location;
 
-            //if (count == 1)
-            //    CounterBtn.Text = $"Clicked {count} time";
-            //else
-            //    CounterBtn.Text = $"Clicked {count} times";
+            var radius = new Circle
+            {
+                Center = selectedLocation,
+                Radius = Distance.FromMeters(SearchSlider.Value),
+                StrokeColor = Color.FromHex("#88FF0000"),
+                FillColor = Color.FromHex("#88FFC0CB"),
+                StrokeWidth = 2
+            };
 
-            //SemanticScreenReader.Announce(CounterBtn.Text);
+            map.MapElements.Clear();
+            map.MapElements.Add(radius);
         }
 
-        private async void OnLoginClicked(object sender, EventArgs e)
+        private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            var loginResult = await auth0Client.LoginAsync();
+            var centerLocation = new Location(49.2901, -123.1376);
+            if (selectedLocation != null)
+            {
+                centerLocation = selectedLocation;
+            }
 
-            lblSignUserName.Text = loginResult.User.Identity.Name;
-            SignOutBtn.IsVisible = true;
+            var radius = new Circle
+            {
+                Center = centerLocation,
+                Radius = Distance.FromMeters(e.NewValue),
+                StrokeColor = Color.FromHex("#88FF0000"),
+                FillColor = Color.FromHex("#88FFC0CB"),
+                StrokeWidth = 2
+            };
 
-            //if (!loginResult.IsError)
-            //{
-            //    LoginView.IsVisible = false;
-            //    HomeView.IsVisible = true;
-            //}
-            //else
-            //{
-            //    await DisplayAlert("Error", loginResult.ErrorDescription, "OK");
-            //}
+            map.MapElements.Clear();
+            map.MapElements.Add(radius);
+
+            // Update drawing parameters based on slider value
+            // For example, set line thickness or opacity
         }
 
-        private async void OnLogoutClicked(object sender, EventArgs e)
+        private void BudgetSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            var logoutResult = await auth0Client.LogoutAsync();
-
-            lblSignUserName.Text = "";
-            SignOutBtn.IsVisible = false;
-            //if (!logoutResult.IsError)
-            //{
-            //    HomeView.IsVisible = false;
-            //    LoginView.IsVisible = true;
-            //}
-            //else
-            //{
-            //    await DisplayAlert("Error", logoutResult.ErrorDescription, "OK");
-            //}
+            lblBudget.Text = $"${(int)e.NewValue}";
         }
 
-        private async void OnRentingBtnClicked(object sender, EventArgs e)
+        private async void OnSearchAreaButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new RentingPage(auth0Client));
+
         }
+
     }
 }
