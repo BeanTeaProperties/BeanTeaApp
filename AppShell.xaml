@@ -11,9 +11,16 @@
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
-    <FlyoutItem
+    <ShellContent
         Title="Login"
-        ></FlyoutItem>
-   
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="LoginPage"/>
+
+
+
+
+
+
+
 
 </Shell>

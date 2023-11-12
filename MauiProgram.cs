@@ -27,6 +27,7 @@ namespace BeanTea
 
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<RentingPage>();
+            builder.Services.AddSingleton<LoginPage>();
 
             builder.Services.AddSingleton(new Auth0Client(new()
             {

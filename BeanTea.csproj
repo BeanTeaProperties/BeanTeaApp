@@ -59,12 +59,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="RentingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Infrastructer\" />
 	  <Folder Include="Resources\Splash\" />
 	</ItemGroup>
 
