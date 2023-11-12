@@ -33,7 +33,50 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
 
+            <Label
+                Text="Sign In"
+                SemanticProperties.HeadingLevel="Level2"
+                FontSize="18"
+                HorizontalOptions="Center" />
+            
+            <Label
+                Text=""
+                SemanticProperties.HeadingLevel="Level2"
+                FontSize="18"
+                HorizontalOptions="Center"
+                x:Name="lblSignUserName" />
+
+            <Button 
+                x:Name="SignBtn"
+                Text="Sign In"
+                Clicked="OnLoginClicked"
+                HorizontalOptions="Center" />
+
+            <Button 
+                x:Name="SignOutBtn"
+                Text="Sign Out"
+                Clicked="OnLogoutClicked"
+                HorizontalOptions="Center"
+                IsVisible="false"/>
+
+
+
+            <StackLayout
+                x:Name="HomeView"
+                IsVisible="false"
+                >
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+
+            </StackLayout>
+
         </VerticalStackLayout>
+        <!-- 👇 new code -->
+      
     </ScrollView>
 
 </ContentPage>
