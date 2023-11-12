@@ -1,4 +1,4 @@
-﻿// Auth0/WebBrowserAuthenticator.cs
+﻿
 
 using IdentityModel.Client;
 using IdentityModel.OidcClient.Browser;

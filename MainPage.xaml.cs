@@ -16,9 +16,10 @@ namespace BeanTea
 
         public MainPage(Auth0Client client)
         {
+
             InitializeComponent();
             auth0Client = client;
-            //auth0Client = client;
+       
         }
 
         private void OnMapTapped(object sender, MapClickedEventArgs e)
@@ -28,7 +29,7 @@ namespace BeanTea
             var radius = new Circle
             {
                 Center = selectedLocation,
-                Radius = Distance.FromMeters(100),
+                Radius = Distance.FromMeters(SearchSlider.Value),
                 StrokeColor = Color.FromHex("#88FF0000"),
                 FillColor = Color.FromHex("#88FFC0CB"),
                 StrokeWidth = 2

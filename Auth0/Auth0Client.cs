@@ -1,5 +1,4 @@
-﻿// Auth0/Auth0Client.cs
-
+﻿
 using IdentityModel.Client;
 using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
