@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BeanTea.Services.BeanTeaServices
 {
-    internal class AuthUserServices
+    public class AuthUserServices
     {
     }
 }

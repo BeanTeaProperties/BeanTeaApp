@@ -5,6 +5,14 @@
              Title="LoginPage">
     <VerticalStackLayout>
         <Label 
+            Text=""
+            IsVisible="false"
+            x:Name="lblSignedUser">          
+            
+        </Label>
+        
+        
+        <Label 
             Text="Login"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
