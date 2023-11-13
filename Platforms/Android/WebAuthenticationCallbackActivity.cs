@@ -14,5 +14,6 @@ namespace MauiAuth0App;
               DataScheme = CALLBACK_SCHEME)]
 public class WebAuthenticationCallbackActivity : Microsoft.Maui.Authentication.WebAuthenticatorCallbackActivity
 {
-    const string CALLBACK_SCHEME = "beantea";
+    //const string CALLBACK_SCHEME = "beantea";
+    const string CALLBACK_SCHEME = "myapp";
 }

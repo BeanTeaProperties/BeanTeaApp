@@ -27,14 +27,15 @@ namespace BeanTea
 
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<RentingPage>();
+            builder.Services.AddSingleton<LoginPage>();
 
             builder.Services.AddSingleton(new Auth0Client(new()
             {
                 Domain = "lenders.auth0.com",
                 ClientId = "w1LO07P1OsVqvRLGwGGa5X90TG4lTY8l",
                 Scope = "openid profile",
-                //RedirectUri = "myapp://callback"
-                RedirectUri = "beantea://callback",
+                RedirectUri = "myapp://callback",
+               // RedirectUri = "beantea://callback",
                 Browser = new WebBrowserAuthenticator()
 
         }));
