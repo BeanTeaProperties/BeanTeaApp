@@ -23,8 +23,12 @@ public partial class LoginPage : ContentPage
     {
         var loginResult = await auth0Client.LoginAsync();
 
-        if (loginResult.AccessToken != null) {
-            lblSignedUser.Text = JsonConvert.SerializeObject(loginResult.User.Claims);
-        }
+        lblSignedUser.Text = loginResult.User.Identity.Name;
+        //var test = "con";
+        //var loginResult = await auth0Client.LoginAsync();
+
+        //if (loginResult.AccessToken != null) {
+        //    lblSignedUser.Text = JsonConvert.SerializeObject(loginResult.User.Claims);
+        //}
     }
 }

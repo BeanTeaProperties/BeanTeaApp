@@ -6,7 +6,6 @@
     <VerticalStackLayout>
         <Label 
             Text=""
-            IsVisible="false"
             x:Name="lblSignedUser">          
             
         </Label>
