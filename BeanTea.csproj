@@ -68,7 +68,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Infrastructer\" />
 	  <Folder Include="Resources\Splash\" />
 	</ItemGroup>
 

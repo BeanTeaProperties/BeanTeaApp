@@ -1,6 +1,9 @@
 ﻿using BeanTea.Auth0;
+using BeanTea.Infrastructer;
 using MauiAuth0App.Auth0;
 using Microsoft.Extensions.Logging;
+using BeanTea.Services;
+using BeanTea.Services.BeanTeaServices;
 
 namespace BeanTea
 {
@@ -28,14 +31,16 @@ namespace BeanTea
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<RentingPage>();
             builder.Services.AddSingleton<LoginPage>();
+            builder.Services.AddSingleton<ApiClient>();
+            builder.Services.AddSingleton<AuthUserServices>();
 
             builder.Services.AddSingleton(new Auth0Client(new()
             {
                 Domain = "lenders.auth0.com",
                 ClientId = "w1LO07P1OsVqvRLGwGGa5X90TG4lTY8l",
-                Scope = "openid profile",
-                RedirectUri = "myapp://callback",
-               // RedirectUri = "beantea://callback",
+                Scope = "openid profile email",
+                //RedirectUri = "myapp://callback",
+                RedirectUri = "beantea://callback",
                 Browser = new WebBrowserAuthenticator()
 
         }));

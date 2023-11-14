@@ -4,10 +4,28 @@
              x:Class="BeanTea.LoginPage"
              Title="LoginPage">
     <VerticalStackLayout>
+
+
+        <Label></Label>
+        <Label></Label>
+        <Image
+            x:Name="imageUserImage"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            HeightRequest="200"
+            WidthRequest="200"
+            >           
+            
+        </Image>
+
+        <Label></Label>
+
         <Label 
             Text=""
-            x:Name="lblSignedUser">          
-            
+            x:Name="lblSignedUser"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" >
+
         </Label>
         
         
@@ -15,12 +33,23 @@
             Text="Login"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-
         <Label></Label>
+
         <Button  
+            x:Name="btnSignIn"
             Clicked="Sign_In_Button_Clicked"
-            Text="Sign In"
+            Text="Sign In or Sign Up"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Label></Label>
+        <Label></Label>
+        <Button  
+             x:Name="btnSignOut"
+             Clicked="Sign_Out_Button_Clicked"
+             Text="Sign Out"
+             VerticalOptions="Center" 
+             HorizontalOptions="Center"
+             IsVisible="false" />
     </VerticalStackLayout>
 </ContentPage>
