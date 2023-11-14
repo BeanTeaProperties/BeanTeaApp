@@ -85,7 +85,7 @@
                         x:Name="WatchAreaButton"
                         Text="Watch Area"         
                       
-                        Clicked="OnSearchAreaButtonClicked"
+                        Clicked="Watch_Button_Clicked"
                         />
 
                 </HorizontalStackLayout>

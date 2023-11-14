@@ -33,6 +33,7 @@ namespace BeanTea
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<ApiClient>();
             builder.Services.AddSingleton<AuthUserServices>();
+            builder.Services.AddSingleton<WatchService>();
 
             builder.Services.AddSingleton(new Auth0Client(new()
             {

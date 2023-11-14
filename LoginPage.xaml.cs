@@ -28,6 +28,7 @@ public partial class LoginPage : ContentPage
         btnSignIn.IsVisible = true;
         lblSignedUser.Text = string.Empty;
         imageUserImage.Source = string.Empty;
+        await SecureStorage.SetAsync("auth-token", "");
     }
 
     private async void Sign_In_Button_Clicked(object sender, EventArgs e)

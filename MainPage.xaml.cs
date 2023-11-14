@@ -5,6 +5,7 @@ using Microsoft.Maui.Maps;
 using Map = Microsoft.Maui.Controls.Maps.Map;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Controls.Maps;
+using BeanTea.Services.BeanTeaServices;
 
 namespace BeanTea
 {
@@ -13,10 +14,10 @@ namespace BeanTea
         int count = 0;
         private Location selectedLocation;
         private readonly Auth0Client auth0Client;
+        private readonly WatchService _watchservice;
 
-        public MainPage(Auth0Client client)
+        public MainPage(Auth0Client client, WatchService watchService)
         {
-
             InitializeComponent();
             auth0Client = client;
        
@@ -66,6 +67,31 @@ namespace BeanTea
         private void BudgetSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             lblBudget.Text = $"${(int)e.NewValue}";
+        }
+
+        private async void Watch_Button_Clicked(object sender, EventArgs e)
+        {
+            var token = await SecureStorage.GetAsync("auth-token");            
+
+            if (!string.IsNullOrEmpty(token)) 
+            {
+                var json = new
+                {
+                    latiude = selectedLocation.Latitude,
+                    longitude = selectedLocation.Longitude,
+                    distance = SearchSlider.Value,
+                    cost = PriceSlider.Value,
+                };
+
+                await _watchservice.AddWatch(JsonConvert.SerializeObject(json));               
+
+            }
+            else
+            {
+                await DisplayAlert("Login In", "Please login before notified of a listing in this area.", "cancel");
+
+            }
+
         }
 
         private async void OnSearchAreaButtonClicked(object sender, EventArgs e)
