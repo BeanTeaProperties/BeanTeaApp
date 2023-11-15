@@ -72,8 +72,9 @@ namespace BeanTea
                 var addWatchRequest = (AddWatchEntity)BindingContext;      
                 addWatchRequest.latitude = selectedLocation.Latitude.ToString();
                 addWatchRequest.longitude = selectedLocation.Longitude.ToString();
-            
-                await _watchservice.AddWatch(JsonConvert.SerializeObject(addWatchRequest)); 
+
+                if (await _watchservice.AddWatch(JsonConvert.SerializeObject(addWatchRequest)))
+                    await DisplayAlert("Watch has Been Added", "We will notify you a posting comes available", "cancel");
             }
             else
             {
