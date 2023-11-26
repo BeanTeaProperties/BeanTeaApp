@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BeanTea.Models;
 using Newtonsoft.Json;
+using BeanTea.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace BeanTea.Services.BeanTeaServices
 {
@@ -37,9 +39,9 @@ namespace BeanTea.Services.BeanTeaServices
 
         }
 
-        public async Task<List<Location>> FilterSearchResult(List<LocationDataDto> searchResults, Location searchLocation, int distance)
+        public async Task<ObservableCollection<SearchResultViewModel>> FilterSearchResult(List<LocationDataDto> searchResults, Location searchLocation, int distance)
         {
-            var locations = new List<Location>();
+            var locations = new ObservableCollection<SearchResultViewModel>();
 
             foreach (var searchResult in searchResults)
             {
@@ -55,10 +57,17 @@ namespace BeanTea.Services.BeanTeaServices
                 // Convert distance to kilometers if needed (depends on how 'distance' is defined)
                 if (distanceToSearchLocation <= distance)
                 {
-                    locations.Add(new Location { Latitude = searchResultLat, Longitude = searchResultLon });
+                    locations.Add(new SearchResultViewModel() { longitude = searchResult.Longitude, latitude = searchResult.Latitude, area = searchResult.Location});
                 }
             }
 
+
+            //var locationsProcessed = new List<Location>();
+
+            //foreach (var location in locations)
+            //{
+            //   locationsProcessed.Add(RandomizeLocation(location, 2000));
+            //}
 
             return locations;
         }

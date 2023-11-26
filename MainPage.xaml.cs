@@ -101,13 +101,17 @@ namespace BeanTea
             
             var searchLocations = await _postingsServices.FilterSearchResult(result, selectedLocation, (int)distance/1000);
 
-            maps.MapElements.Clear();
+            lblSearchingWarning.Text = $"Loading: {searchLocations.Count()}";
 
-            maps.ItemsSource = searchLocations;
+            await Navigation.PushAsync(new SearchResultsPage(searchLocations)); 
 
-            _watchEntity.Postings.AddRange(searchLocations);
+            //maps.MapElements.Clear();
 
-            lblSearchingWarning.Text = $"Found: {searchLocations.Count()}";
+            //maps.ItemsSource = searchLocations;
+
+            //_watchEntity.Postings.AddRange(searchLocations);
+
+            //lblSearchingWarning.Text = $"Found: {searchLocations.Count()}";
 
         }
 
