@@ -16,7 +16,11 @@ namespace BeanTea.Infrastructer
                 request.Content = new StringContent(body);
             }
 
-            request.Headers.Add("Authorization", await SecureStorage.GetAsync("access-token"));
+            var token = await SecureStorage.GetAsync("access-token");
+            if (token != null) {
+                request.Headers.Add("Authorization", token);
+            }
+          
           
             var response = await client.SendAsync(request);
 

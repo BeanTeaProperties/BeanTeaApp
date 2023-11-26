@@ -47,7 +47,7 @@ namespace BeanTea
         {
             lblSearchingWarning.Text = "Select an Area";
             maps.MapElements.Clear();
-
+                  
             var circle = new Circle
             {
                 Center = location,
@@ -64,7 +64,7 @@ namespace BeanTea
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             lblSearchingWarning.Text = "Select an Area";
-            maps.MapElements.Clear();
+      
             distance = e.NewValue;
             DrawACircleOnTheMap(e.NewValue, selectedLocation);            
         }
@@ -101,6 +101,12 @@ namespace BeanTea
             
             var searchLocations = await _postingsServices.FilterSearchResult(result, selectedLocation, (int)distance/1000);
 
+            if (searchLocations.Count() == 0)
+            {
+                lblSearchingWarning.Text = $"Nothing was found in that area";
+                return;
+            }
+
             lblSearchingWarning.Text = $"Loading: {searchLocations.Count()}";
 
             await Navigation.PushAsync(new SearchResultsPage(searchLocations)); 
@@ -118,7 +124,7 @@ namespace BeanTea
         private void BudgetMacSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             lblSearchingWarning.Text = "Select an Area";
-            maps.MapElements.Clear();
+         
             var newStep = Math.Round(e.NewValue / 100) * 100;
             maxBudget = (int)newStep;
 
@@ -129,7 +135,7 @@ namespace BeanTea
         private void BudgetMinSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             lblSearchingWarning.Text = "Select an Area";
-            maps.MapElements.Clear();
+
             var newStep = Math.Round(e.NewValue / 100) * 100;
             minBudget = (int)newStep;
 
