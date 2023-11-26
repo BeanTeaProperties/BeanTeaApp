@@ -3,16 +3,20 @@ namespace BeanTea.Infrastructer
 {
     public class ApiClient
     {
-        public async Task<HttpResponseMessage> SendReuest(HttpMethod method, string url, string body = "")
+        public async Task<HttpResponseMessage> SendRequest(HttpMethod method, string url, string body = null)
         {
             var client = new HttpClient();
 
             var request = new HttpRequestMessage();
             request.Method = method;
             request.RequestUri = new Uri(url);
-            request.Content = new StringContent(body);
 
-            request.Headers.Add("Authorization", await SecureStorage.GetAsync("auth-token"));
+            if (body != null)
+            {
+                request.Content = new StringContent(body);
+            }
+
+            request.Headers.Add("Authorization", await SecureStorage.GetAsync("access-token"));
           
             var response = await client.SendAsync(request);
 

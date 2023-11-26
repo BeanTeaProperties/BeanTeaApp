@@ -2,12 +2,13 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Controls.Maps;
 
 namespace BeanTea.ViewModels
 {
-    public partial class AddWatchEntity : ObservableObject
+    public partial class AddWatchViewModel : ObservableObject
     {
-        public AddWatchEntity()
+        public AddWatchViewModel()
         {
         }
 
@@ -21,14 +22,21 @@ namespace BeanTea.ViewModels
         bool sublettingOption;
 
         [ObservableProperty]
-        public int budget;
+        public int maxBudget;
+
+        [ObservableProperty]
+        public int minBudget;
 
         [ObservableProperty]
         public int distance = 3000;
 
+        [ObservableProperty]
+        public List<Location> postings = new List<Location>();
+
+
         public string longitude;
         public string latitude;
-   
+
 
        
 

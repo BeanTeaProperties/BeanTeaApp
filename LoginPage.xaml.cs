@@ -37,7 +37,9 @@ public partial class LoginPage : ContentPage
 
         var email = loginResult.User.Identities.FirstOrDefault().Claims.FirstOrDefault(x => x.Type == "email").Value;
         var picture = loginResult.User.Identities.FirstOrDefault().Claims.FirstOrDefault(x => x.Type == "picture").Value;
+        
 
+        await SecureStorage.SetAsync("access-token", loginResult.AccessToken);
         await SecureStorage.SetAsync("auth-token", loginResult.AccessToken);
         await SecureStorage.SetAsync("email", email);
 
