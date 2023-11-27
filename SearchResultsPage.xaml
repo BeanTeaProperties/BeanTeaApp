@@ -3,18 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BeanTea.SearchResultsPage"
              Title="SearchResultsPage"
-             xmlns:viewmodel="clr-namespace:BeanTea.ViewModels"
-            x:DataType="viewmodel:SearchResultViewModel">
-    
+             BindingContext="SearchResultViewModel">
+
     <StackLayout>
-        <ListView x:Name="locationsListView" ItemsSource="{Binding .}">
+        <Label x:Name="lblSearchResults">
+            
+        </Label>
+
+        <ListView x:Name="itemsListView">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Area}" 
-                      />
+                    <TextCell Text="{Binding}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <!--<ListView x:Name="locationsListView">
+            
+            </ListView.ItemTemplate>
+        </ListView>-->
 
     </StackLayout>
 </ContentPage>

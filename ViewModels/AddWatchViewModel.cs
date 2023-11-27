@@ -30,15 +30,15 @@ namespace BeanTea.ViewModels
         [ObservableProperty]
         public int distance = 3000;
 
-        [ObservableProperty]
-        public List<Location> postings = new List<Location>();
+        //[ObservableProperty]
+        //public List<Location> postings = new List<Location>();
 
 
         public string longitude;
         public string latitude;
 
 
-       
+
 
     }
 

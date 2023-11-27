@@ -40,14 +40,14 @@ namespace BeanTea
         private void OnMapTapped(object sender, MapClickedEventArgs e)
         {
             selectedLocation = e.Location;
-            DrawACircleOnTheMap(distance, e.Location);          
+            DrawACircleOnTheMap(distance, e.Location);
         }
 
         private void DrawACircleOnTheMap(double radius, Location location)
         {
             lblSearchingWarning.Text = "Select an Area";
             maps.MapElements.Clear();
-                  
+
             var circle = new Circle
             {
                 Center = location,
@@ -64,9 +64,9 @@ namespace BeanTea
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             lblSearchingWarning.Text = "Select an Area";
-      
+
             distance = e.NewValue;
-            DrawACircleOnTheMap(e.NewValue, selectedLocation);            
+            DrawACircleOnTheMap(e.NewValue, selectedLocation);
         }
 
         private async void Watch_Button_Clicked(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace BeanTea
             var token = await SecureStorage.GetAsync("auth-token");
             if (!string.IsNullOrEmpty(token))
             {
-                var addWatchRequest = (AddWatchViewModel)BindingContext;      
+                var addWatchRequest = (AddWatchViewModel)BindingContext;
                 addWatchRequest.latitude = selectedLocation.Latitude.ToString();
                 addWatchRequest.longitude = selectedLocation.Longitude.ToString();
 
@@ -98,8 +98,8 @@ namespace BeanTea
             }
 
             var result = await _postingsServices.ReturnPostings(minBudget, maxBudget);
-            
-            var searchLocations = await _postingsServices.FilterSearchResult(result, selectedLocation, (int)distance/1000);
+
+            var searchLocations = await _postingsServices.FilterSearchResult(result, selectedLocation, (int)distance / 1000);
 
             if (searchLocations.Count() == 0)
             {
@@ -124,7 +124,7 @@ namespace BeanTea
         private void BudgetMacSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             lblSearchingWarning.Text = "Select an Area";
-         
+
             var newStep = Math.Round(e.NewValue / 100) * 100;
             maxBudget = (int)newStep;
 

@@ -39,9 +39,9 @@ namespace BeanTea.Services.BeanTeaServices
 
         }
 
-        public async Task<ObservableCollection<SearchResultViewModel>> FilterSearchResult(List<LocationDataDto> searchResults, Location searchLocation, int distance)
+        public async Task<List<SearchResultViewModel>> FilterSearchResult(List<LocationDataDto> searchResults, Location searchLocation, int distance)
         {
-            var locations = new ObservableCollection<SearchResultViewModel>();
+            var locations = new List<SearchResultViewModel>();
 
             foreach (var searchResult in searchResults)
             {

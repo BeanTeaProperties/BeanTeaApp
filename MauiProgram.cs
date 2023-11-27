@@ -29,7 +29,7 @@ namespace BeanTea
 #endif
 
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<RentingPage>();
+           // builder.Services.AddSingleton<RentingPage>();
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<ApiClient>();
             builder.Services.AddSingleton<AuthUserServices>();

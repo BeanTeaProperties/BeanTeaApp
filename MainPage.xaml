@@ -6,19 +6,17 @@
              xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
              BindingContext="AddWatchEntity"
              xmlns:viewmodel="clr-namespace:BeanTea.ViewModels"
-             x:DataType="viewmodel:AddWatchViewModel"
-            >   
-        <VerticalStackLayout>
-            <maps:Map MapType="Street" x:Name="maps" MaximumHeightRequest="400" MapClicked="OnMapTapped" ItemsSource="{Binding Postings}">
-              
-            <x:Arguments>
+             x:DataType="viewmodel:AddWatchViewModel">
+
+    <VerticalStackLayout>
+        
+        <maps:Map MapType="Street" x:Name="maps" MaximumHeightRequest="400" MapClicked="OnMapTapped">              
+                <x:Arguments>
                     <MapSpan>
                         <x:Arguments>         
 
                         <sensors:Location>
-                                <x:Arguments>
-                                    <!--<x:Double>49.2901</x:Double>
-                                <x:Double>-123.1376</x:Double>-->
+                                <x:Arguments>                           
                                     <x:Double>49.2901</x:Double>
                                     <x:Double>-123.1376</x:Double>
                                 </x:Arguments>
@@ -29,20 +27,15 @@
                     </MapSpan>
                 </x:Arguments>
 
-            <maps:Map.ItemTemplate>
-                <DataTemplate>
-                    <maps:Pin 
-                        Location="{Binding .}"
-                        Label="Here"
-                  />
-                </DataTemplate>
-            </maps:Map.ItemTemplate>
         </maps:Map>
 
+        
         <Label>
         </Label>
             
-        <VerticalStackLayout>
+        
+        <!-- Radio Buttons-->
+        <!--<VerticalStackLayout>
                 
                 <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
                   
@@ -52,18 +45,16 @@
           
                     <RadioButton IsChecked="{Binding SublettingOption, Mode=TwoWay}" RadioButtonGroup.GroupName="options" Content="Subletting"/>
                                        
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+                </HorizontalStackLayout
+                                       >
+        </VerticalStackLayout>-->
             
-            <!--<Label>
-            </Label>-->
-            <!--<Label>
-            </Label>-->
+            <!-- Sliders -->   
 
             <Label Text="Select an Area" x:Name="lblSearchingWarning" FontSize="Medium" VerticalOptions="Center"  HorizontalOptions="Center"/>
             <Label/>
 
-            <Slider x:Name="SearchSlider" Maximum="10000" Minimum="0" Value="{Binding Distance, Mode=TwoWay}" ValueChanged="Slider_ValueChanged" WidthRequest="350"  BindingContext="{Binding Distance, Mode=TwoWay}"/>
+                     <Slider x:Name="SearchSlider" Maximum="10000" Minimum="0" Value="{Binding Distance, Mode=TwoWay}" ValueChanged="Slider_ValueChanged" WidthRequest="350"  BindingContext="{Binding Distance, Mode=TwoWay}"/>
 
             <Label>
             </Label>
@@ -73,7 +64,7 @@
             <Label Text="Your Min Monthly Budget?" FontSize="Medium" x:Name="lblMinBudget" VerticalOptions="Center" HorizontalOptions="Center" />
             <Label/>
 
-        <Slider x:Name="PriceMinSlider" Maximum="20000" Minimum="100" Value="{Binding MinBudget, Mode=TwoWay}" ValueChanged="BudgetMinSlider_ValueChanged" WidthRequest="350" />
+                   <Slider x:Name="PriceMinSlider" Maximum="20000" Minimum="100" Value="{Binding MinBudget, Mode=TwoWay}" ValueChanged="BudgetMinSlider_ValueChanged" WidthRequest="350" />
 
             <Label>                
             </Label>
@@ -81,30 +72,31 @@
             <Label Text="Your Max Monthly Budget?" FontSize="Medium" x:Name="lblMaxBudget" VerticalOptions="Center" HorizontalOptions="Center" />
             <Label/>
 
-            <Slider x:Name="PriceMaxSlider" Maximum="20000" Minimum="100" Value="{Binding MaxBudget, Mode=TwoWay}" ValueChanged="BudgetMacSlider_ValueChanged" WidthRequest="350" />
+                    <Slider x:Name="PriceMaxSlider" Maximum="20000" Minimum="100" Value="{Binding MaxBudget, Mode=TwoWay}" ValueChanged="BudgetMacSlider_ValueChanged" WidthRequest="350" />
 
             <Label>
             </Label>
 
 
-        <!--Buttons --> 
-            <!--<VerticalStackLayout>-->
-                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" >
-                    <Button
-                        x:Name="SearchAreaButton"
-                        Text="Search Area"
-                        Clicked="OnSearchAreaButtonClicked"
-                        />
+        <!--Buttons-->
+        
+          
+    
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" >
+                <Button
+                    x:Name="SearchAreaButton"
+                    Text="Search Area"
+                    Clicked="OnSearchAreaButtonClicked"
+                    />
 
-                    <Button
-                        x:Name="WatchAreaButton"
-                        Text="Watch Area"  
-                        Clicked="Watch_Button_Clicked"
-                        />
+                <Button
+                    x:Name="WatchAreaButton"
+                    Text="Watch Area"  
+                    Clicked="Watch_Button_Clicked"
+                    />
 
-                </HorizontalStackLayout>
+            </HorizontalStackLayout>
 
-            <!--</VerticalStackLayout>-->
 
         </VerticalStackLayout>
         <!-- 👇 new code -->
