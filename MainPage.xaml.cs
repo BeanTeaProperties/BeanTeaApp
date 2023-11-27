@@ -17,15 +17,20 @@ namespace BeanTea
         private double distance;
         private readonly Auth0Client auth0Client;
         private readonly WatchService _watchservice;
-        AddWatchEntity _watchEntity;
+        AddWatchViewModel _watchEntity;
+        PostingsServices _postingsServices;
+        int maxBudget = 0;
+        int minBudget = 0;
 
-        public MainPage(Auth0Client client, WatchService watchService)
+        public MainPage(Auth0Client client, WatchService watchService, PostingsServices postingsServices)
         {
             InitializeComponent();
             auth0Client = client;
             _watchservice = watchService;
-            _watchEntity = new AddWatchEntity();
-            BindingContext = _watchEntity;
+            _postingsServices = postingsServices;
+            _watchEntity = new AddWatchViewModel();
+
+            BindingContext = _watchEntity;        
 
             distance = 2500;
             selectedLocation = new Location(49.2901, -123.1376);
@@ -35,11 +40,14 @@ namespace BeanTea
         private void OnMapTapped(object sender, MapClickedEventArgs e)
         {
             selectedLocation = e.Location;
-            DrawACircleOnTheMap(distance, e.Location);          
+            DrawACircleOnTheMap(distance, e.Location);
         }
 
         private void DrawACircleOnTheMap(double radius, Location location)
         {
+            lblSearchingWarning.Text = "Select an Area";
+            maps.MapElements.Clear();
+
             var circle = new Circle
             {
                 Center = location,
@@ -49,19 +57,16 @@ namespace BeanTea
                 StrokeWidth = 2
             };
 
-            map.MapElements.Clear();
-            map.MapElements.Add(circle);
+            maps.MapElements.Clear();
+            maps.MapElements.Add(circle);
         }
 
         private void Slider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            distance = e.NewValue;
-            DrawACircleOnTheMap(e.NewValue, selectedLocation);            
-        }
+            lblSearchingWarning.Text = "Select an Area";
 
-        private void BudgetSlider_ValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            lblBudget.Text = $"${(int)e.NewValue}";
+            distance = e.NewValue;
+            DrawACircleOnTheMap(e.NewValue, selectedLocation);
         }
 
         private async void Watch_Button_Clicked(object sender, EventArgs e)
@@ -69,12 +74,12 @@ namespace BeanTea
             var token = await SecureStorage.GetAsync("auth-token");
             if (!string.IsNullOrEmpty(token))
             {
-                var addWatchRequest = (AddWatchEntity)BindingContext;      
+                var addWatchRequest = (AddWatchViewModel)BindingContext;
                 addWatchRequest.latitude = selectedLocation.Latitude.ToString();
                 addWatchRequest.longitude = selectedLocation.Longitude.ToString();
 
                 if (await _watchservice.AddWatch(JsonConvert.SerializeObject(addWatchRequest)))
-                    await DisplayAlert("Watch has Been Added", "We will notify you a posting comes available", "cancel");
+                    await DisplayAlert("Sucess!", "We will notify you a posting comes available", "cancel");
             }
             else
             {
@@ -85,9 +90,57 @@ namespace BeanTea
 
         private async void OnSearchAreaButtonClicked(object sender, EventArgs e)
         {
+            lblSearchingWarning.Text = "Searching....";
+
+            if (minBudget > maxBudget)
+            {
+                minBudget = maxBudget;
+            }
+
+            var result = await _postingsServices.ReturnPostings(minBudget, maxBudget);
+
+            var searchLocations = await _postingsServices.FilterSearchResult(result, selectedLocation, (int)distance / 1000);
+
+            if (searchLocations.Count() == 0)
+            {
+                lblSearchingWarning.Text = $"Nothing was found in that area";
+                return;
+            }
+
+            lblSearchingWarning.Text = $"Loading: {searchLocations.Count()}";
+
+            await Navigation.PushAsync(new SearchResultsPage(searchLocations)); 
+
+            //maps.MapElements.Clear();
+
+            //maps.ItemsSource = searchLocations;
+
+            //_watchEntity.Postings.AddRange(searchLocations);
+
+            //lblSearchingWarning.Text = $"Found: {searchLocations.Count()}";
 
         }
 
-      
+        private void BudgetMacSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            lblSearchingWarning.Text = "Select an Area";
+
+            var newStep = Math.Round(e.NewValue / 100) * 100;
+            maxBudget = (int)newStep;
+
+            lblMaxBudget.Text = $"${(int)newStep}";
+        }
+
+
+        private void BudgetMinSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            lblSearchingWarning.Text = "Select an Area";
+
+            var newStep = Math.Round(e.NewValue / 100) * 100;
+            minBudget = (int)newStep;
+
+            lblMinBudget.Text = $"${(int)newStep}";
+        }
+
     }
 }

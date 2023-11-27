@@ -21,7 +21,7 @@ namespace BeanTea.Services.BeanTeaServices
         {
             try
             {
-                await _apClient.SendReuest(HttpMethod.Post, "https://webhook.site/888b59c7-8db0-4795-833c-26afe22e65bc", JsonConvert.SerializeObject(jsonLocation));
+                await _apClient.SendRequest(HttpMethod.Post, "https://webhook.site/888b59c7-8db0-4795-833c-26afe22e65bc", JsonConvert.SerializeObject(jsonLocation));
                 return true;
             }
             catch (Exception ex)
