@@ -41,7 +41,7 @@ namespace BeanTea
                 Domain = "lenders.auth0.com",
                 ClientId = "w1LO07P1OsVqvRLGwGGa5X90TG4lTY8l",
                 Scope = "openid profile email",
-                //RedirectUri = "myapp://callback",
+             //   RedirectUri = "myapp://callback",
                 RedirectUri = "beantea://callback",
                 Browser = new WebBrowserAuthenticator()
 
