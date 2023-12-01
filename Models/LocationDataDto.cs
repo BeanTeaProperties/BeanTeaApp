@@ -15,6 +15,10 @@ namespace BeanTea.Models
         public string RowKey { get; set; }
         public DateTime Timestamp { get; set; }
         public object ETag { get; set; }
+        public string Title { get; set; }
+        public string Price { get; set; }
+
+        public string Url { get; set; }
     }
 
 }

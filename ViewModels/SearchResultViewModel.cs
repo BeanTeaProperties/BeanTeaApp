@@ -20,5 +20,15 @@ namespace BeanTea.ViewModels
         [ObservableProperty]
         public string area;
 
+        [ObservableProperty]
+        public string title;
+
+        [ObservableProperty]
+        public string price;
+
+        [ObservableProperty]
+        public string url;
+
+
     }
 }
