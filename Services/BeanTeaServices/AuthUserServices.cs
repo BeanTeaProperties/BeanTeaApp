@@ -24,7 +24,7 @@ namespace BeanTea.Services.BeanTeaServices
                 email = email
             };
                        
-            await _apiClient.SendRequest(HttpMethod.Post, "http://localhost:7071/api/user", JsonSerializer.Serialize(json));
+            await _apiClient.SendRequest(HttpMethod.Post, "https://beanteaapi20231125145500.azurewebsites.net/api/user?code=hHQCD9HODN2GZN8Pd3nmyBFyP5InQQWDey_mQG0dEeQnAzFuPizEDg==", JsonSerializer.Serialize(json));
         }
     }
 }

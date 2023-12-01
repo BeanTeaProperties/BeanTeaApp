@@ -8,7 +8,7 @@
 
         <Label></Label>
         <Label></Label>
-        <Image
+        <!--<Image
             x:Name="imageUserImage"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
@@ -16,7 +16,7 @@
             WidthRequest="200"
             >           
             
-        </Image>
+        </Image>-->
 
         <Label></Label>
 
