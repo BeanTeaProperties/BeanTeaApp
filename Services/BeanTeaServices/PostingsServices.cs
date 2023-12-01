@@ -57,7 +57,7 @@ namespace BeanTea.Services.BeanTeaServices
                 // Convert distance to kilometers if needed (depends on how 'distance' is defined)
                 if (distanceToSearchLocation <= distance)
                 {
-                    locations.Add(new SearchResultViewModel() { longitude = searchResult.Longitude, latitude = searchResult.Latitude, area = searchResult.Location});
+                    locations.Add(new SearchResultViewModel() { longitude = searchResult.Longitude, latitude = searchResult.Latitude, area = searchResult.Location, title = searchResult.Title,  price = searchResult.Price, url = searchResult.Url});
                 }
             }
 

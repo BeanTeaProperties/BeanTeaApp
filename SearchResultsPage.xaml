@@ -13,8 +13,25 @@
         <ListView x:Name="itemsListView">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding}" />
+                    <ViewCell Tapped="ViewCell_Tapped">
+                        <StackLayout Orientation="Vertical" Padding="12">
+                            <Label Text="{Binding .Title}" FontSize="Medium" />
+                            <Label Text="{Binding .Url}" FontSize="Medium" />
+                            <!--<Label Text="{Binding .Price}" TextColor="Blue" TextDecorations="Underline">-->
+                                <!--<Label.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                    Tapped="OnUrlTapped"
+                                    NumberOfTapsRequired="1" />
+                                </Label.GestureRecognizers>-->
+                            <!--</Label>-->
+                        </StackLayout>
+                    </ViewCell>
                 </DataTemplate>
+
+                <!--<DataTemplate>
+                    <TextCell Text="{Binding .Title}" Tapped="TextCell_Tapped" />
+                    
+                </DataTemplate>-->
             </ListView.ItemTemplate>
         </ListView>
         <!--<ListView x:Name="locationsListView">

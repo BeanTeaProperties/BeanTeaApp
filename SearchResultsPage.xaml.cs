@@ -24,4 +24,19 @@ public partial class SearchResultsPage : ContentPage
 
         itemsListView.ItemsSource = Result;
     }
+
+    private async void ViewCell_Tapped(object sender, EventArgs e)
+    {
+        var test = sender;
+        var test1 = e;
+
+   
+
+        var viewCell = sender as ViewCell;
+        if (viewCell?.BindingContext is SearchResultViewModel item)
+        {
+            // Perform action with the tapped item
+            await Launcher.OpenAsync(new Uri(item.url));
+        }
+    }
 }
