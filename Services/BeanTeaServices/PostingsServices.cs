@@ -21,6 +21,30 @@ namespace BeanTea.Services.BeanTeaServices
             apiClient = new ApiClient();
         }
 
+        public async Task<bool> IsItADeadLink(string url)
+        {
+            try
+            {
+                var response = await apiClient.SendRequest(HttpMethod.Get, url);
+                return !response.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException ex)
+            {
+                return ex.StatusCode == System.Net.HttpStatusCode.Gone;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+
+        public async Task RemovePosting(string posting)
+        {
+            var url = "https://beanteaapi20231125145500.azurewebsites.net/api/renting?code=hHQCD9HODN2GZN8Pd3nmyBFyP5InQQWDey_mQG0dEeQnAzFuPizEDg==";
+
+            await apiClient.SendRequest(HttpMethod.Delete, url, posting);
+        }
+
         public async Task<List<LocationDataDto>> ReturnPostings(int min, int max)
         {
             var request = new
@@ -32,8 +56,8 @@ namespace BeanTea.Services.BeanTeaServices
             var url = "https://beanteaapi20231125145500.azurewebsites.net/api/renting?code=hHQCD9HODN2GZN8Pd3nmyBFyP5InQQWDey_mQG0dEeQnAzFuPizEDg==";
 
             var response = await apiClient.SendRequest(HttpMethod.Post, url, JsonConvert.SerializeObject(request));
-            var test = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<LocationDataDto>>(test);
+            var responseString = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<List<LocationDataDto>>(responseString);
 
             return result;
 
@@ -63,34 +87,6 @@ namespace BeanTea.Services.BeanTeaServices
 
             return locations;
         }
-
-        public class LocationData
-        {
-            public double Latitude { get; set; }
-            public double Longitude { get; set; }
-        }
-
-        public Location RandomizeLocation(Location originalLocation, double maxOffsetInMeters)
-        {
-            Random random = new Random();
-
-            // Earth's radius in meters
-            double earthRadius = 6_371_000;
-
-            // Convert offset from meters to degrees
-            double maxOffsetInDegrees = maxOffsetInMeters / earthRadius * (180 / Math.PI);
-
-            // Generate a random offset, ensuring it's within the specified range
-            double latitudeOffset = maxOffsetInDegrees * (random.NextDouble() - 0.5) * 2;
-            double longitudeOffset = maxOffsetInDegrees * (random.NextDouble() - 0.5) * 2;
-
-            return new Location
-            {
-                Latitude = originalLocation.Latitude + latitudeOffset,
-                Longitude = originalLocation.Longitude + longitudeOffset
-            };
-        }
-
 
         private double ToRadians(double angleInDegrees)
         {
