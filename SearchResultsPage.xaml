@@ -1,43 +1,30 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BeanTea.SearchResultsPage"
-             Title="SearchResultsPage"
-             BindingContext="SearchResultViewModel">
+              Title="Latest Postings in that Area"
+              x:Class="BeanTea.SearchResultsPage"          
+              BindingContext="SearchResultViewModel">
 
-    <StackLayout>
-        <Label x:Name="lblSearchResults">
-            
-        </Label>
-
-        <ListView x:Name="itemsListView">
-            <ListView.ItemTemplate>
+       
+        <CollectionView x:Name="itemsCollectionView">            
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell Tapped="ViewCell_Tapped">
-                        <StackLayout Orientation="Vertical" Padding="12">
-                            <Label Text="{Binding .Title}" FontSize="Medium" />
-                            <Label Text="{Binding .Url}" FontSize="Medium" />
-                            <!--<Label Text="{Binding .Price}" TextColor="Blue" TextDecorations="Underline">-->
-                                <!--<Label.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                    Tapped="OnUrlTapped"
-                                    NumberOfTapsRequired="1" />
-                                </Label.GestureRecognizers>-->
-                            <!--</Label>-->
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
+                <StackLayout Padding="10">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTapped" NumberOfTapsRequired="1" />
+                    </StackLayout.GestureRecognizers>
 
-                <!--<DataTemplate>
-                    <TextCell Text="{Binding .Title}" Tapped="TextCell_Tapped" />
-                    
-                </DataTemplate>-->
-            </ListView.ItemTemplate>
-        </ListView>
-        <!--<ListView x:Name="locationsListView">
-            
-            </ListView.ItemTemplate>
-        </ListView>-->
 
-    </StackLayout>
+                    <Label Text="{Binding Title}"></Label>
+
+                    <Label Text="{Binding Price, StringFormat='${0}'}" ></Label>
+
+                </StackLayout>
+            </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+
 </ContentPage>
+    
+    
