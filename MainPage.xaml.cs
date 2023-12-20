@@ -111,14 +111,6 @@ namespace BeanTea
 
             await Navigation.PushAsync(new SearchResultsPage(searchLocations)); 
 
-            //maps.MapElements.Clear();
-
-            //maps.ItemsSource = searchLocations;
-
-            //_watchEntity.Postings.AddRange(searchLocations);
-
-            //lblSearchingWarning.Text = $"Found: {searchLocations.Count()}";
-
         }
 
         private void BudgetMacSlider_ValueChanged(object sender, ValueChangedEventArgs e)

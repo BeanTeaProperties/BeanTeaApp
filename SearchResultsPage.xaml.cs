@@ -1,4 +1,6 @@
+using BeanTea.Services.BeanTeaServices;
 using BeanTea.ViewModels;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 
 namespace BeanTea;
@@ -6,6 +8,7 @@ namespace BeanTea;
 public partial class SearchResultsPage : ContentPage
 {
 	public List<SearchResultViewModel> Result; 
+    PostingsServices postServices = new PostingsServices();
 
 	public SearchResultsPage(List<SearchResultViewModel> LocationData)
 	{
@@ -26,7 +29,15 @@ public partial class SearchResultsPage : ContentPage
         var layout = (BindableObject)sender;
         var item = (SearchResultViewModel)layout.BindingContext;
 
-        await Launcher.OpenAsync(new Uri(item.url));
+        if (await postServices.IsItADeadLink(item.Url))
+        {
+            await postServices.RemovePosting(JsonConvert.SerializeObject(item));
+            await DisplayAlert("Unfortunately this listing is no longer active.", "Thanks for bringing this to our attention we will de list it.", "Back");
+        }
+        else
+        {
+            await Launcher.OpenAsync(new Uri(item.Url));
+        } 
 
     }
 }
