@@ -61,14 +61,6 @@ namespace BeanTea.Services.BeanTeaServices
                 }
             }
 
-
-            //var locationsProcessed = new List<Location>();
-
-            //foreach (var location in locations)
-            //{
-            //   locationsProcessed.Add(RandomizeLocation(location, 2000));
-            //}
-
             return locations;
         }
 
