@@ -7,10 +7,10 @@ namespace BeanTea;
 
 public partial class SearchResultsPage : ContentPage
 {
-	public List<SearchResultViewModel> Result; 
+	public ObservableCollection<SearchResultViewModel> Result; 
     PostingsServices postServices = new PostingsServices();
 
-	public SearchResultsPage(List<SearchResultViewModel> LocationData)
+	public SearchResultsPage(ObservableCollection<SearchResultViewModel> LocationData)
 	{
         InitializeComponent();
         Result = LocationData;
@@ -30,9 +30,10 @@ public partial class SearchResultsPage : ContentPage
         var item = (SearchResultViewModel)layout.BindingContext;
 
         if (await postServices.IsItADeadLink(item.Url))
-        {
+        {         
             await postServices.RemovePosting(JsonConvert.SerializeObject(item));
             await DisplayAlert("Unfortunately this listing is no longer active.", "Thanks for bringing this to our attention we will de list it.", "Back");
+            Result.Remove(item);
         }
         else
         {

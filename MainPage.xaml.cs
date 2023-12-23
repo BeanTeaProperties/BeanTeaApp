@@ -8,6 +8,7 @@ using Microsoft.Maui.Controls.Maps;
 using BeanTea.Services.BeanTeaServices;
 using BeanTea.ViewModels;
 using System.Diagnostics.CodeAnalysis;
+using System.Collections.ObjectModel;
 
 namespace BeanTea
 {
@@ -109,7 +110,8 @@ namespace BeanTea
 
             lblSearchingWarning.Text = $"Loading: {searchLocations.Count()}";
 
-            await Navigation.PushAsync(new SearchResultsPage(searchLocations)); 
+            var observableCollection = new ObservableCollection<SearchResultViewModel>(searchLocations);
+            await Navigation.PushAsync(new SearchResultsPage(observableCollection)); 
 
         }
 

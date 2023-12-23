@@ -33,23 +33,6 @@
         <Label>
         </Label>
             
-        
-        <!-- Radio Buttons-->
-        <!--<VerticalStackLayout>
-                
-                <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
-                  
-                    <RadioButton IsChecked="{Binding RentingOption, Mode=TwoWay}" RadioButtonGroup.GroupName="options" Content="Renting"/>
-                   
-                    <RadioButton IsChecked="{Binding SharingOption, Mode=TwoWay}" RadioButtonGroup.GroupName="options" Content="Sharing" />
-          
-                    <RadioButton IsChecked="{Binding SublettingOption, Mode=TwoWay}" RadioButtonGroup.GroupName="options" Content="Subletting"/>
-                                       
-                </HorizontalStackLayout
-                                       >
-        </VerticalStackLayout>-->
-            
-            <!-- Sliders -->   
 
             <Label Text="Select an Area" x:Name="lblSearchingWarning" FontSize="Medium" VerticalOptions="Center"  HorizontalOptions="Center"/>
             <Label/>
