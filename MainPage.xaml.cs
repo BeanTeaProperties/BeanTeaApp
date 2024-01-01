@@ -9,6 +9,7 @@ using BeanTea.Services.BeanTeaServices;
 using BeanTea.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.ObjectModel;
+using BeanTea.Models;
 
 namespace BeanTea
 {
@@ -73,18 +74,29 @@ namespace BeanTea
         private async void Watch_Button_Clicked(object sender, EventArgs e)
         {
             var token = await SecureStorage.GetAsync("auth-token");
+           
             if (!string.IsNullOrEmpty(token))
             {
+                lblSearchingWarning.Text = "Adding a watch in this area...";
+                var email = await SecureStorage.GetAsync("email");
                 var addWatchRequest = (AddWatchViewModel)BindingContext;
                 addWatchRequest.latitude = selectedLocation.Latitude.ToString();
                 addWatchRequest.longitude = selectedLocation.Longitude.ToString();
+                var distanceWatch = (int)(distance / 1000);
+                addWatchRequest.email = email;
 
-                if (await _watchservice.AddWatch(JsonConvert.SerializeObject(addWatchRequest)))
-                    await DisplayAlert("Sucess!", "We will notify you a posting comes available", "cancel");
+                var watch = new BeanTeaWatchDto(addWatchRequest.MinBudget, addWatchRequest.MaxBudget, distanceWatch, addWatchRequest.latitude, addWatchRequest.longitude, addWatchRequest.email);
+
+                if (await _watchservice.AddWatch(watch))
+                    await DisplayAlert("Sucess!", "We will notify you a posting comes available", "back");
+                else
+                    await DisplayAlert("Failed!", "Unfortunately we have unexpected error, Please try again", "back");
+
+                lblSearchingWarning.Text = "Select an Area";
             }
             else
             {
-                await DisplayAlert("Login In", "Please login before notified of a listing in this area.", "cancel");
+                await DisplayAlert("Login In", "Please login before notified of a listing in this area.", "back");
             }
 
         }

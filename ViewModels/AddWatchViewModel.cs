@@ -13,29 +13,18 @@ namespace BeanTea.ViewModels
         }
 
         [ObservableProperty]
-        bool rentingOption = true;
-
-        [ObservableProperty]
-        bool sharingOption;
-
-        [ObservableProperty]
-        bool sublettingOption;
-
-        [ObservableProperty]
         public int maxBudget;
 
         [ObservableProperty]
         public int minBudget;
 
         [ObservableProperty]
-        public int distance = 3000;
-
-        //[ObservableProperty]
-        //public List<Location> postings = new List<Location>();
-
+        public int distance;
 
         public string longitude;
         public string latitude;
+
+        public string email;
 
 
 

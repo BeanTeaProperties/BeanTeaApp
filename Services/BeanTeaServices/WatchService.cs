@@ -1,4 +1,5 @@
 ﻿using BeanTea.Infrastructer;
+using BeanTea.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace BeanTea.Services.BeanTeaServices
             _apClient = apiClient;
         }   
 
-        public async Task<bool> AddWatch(string jsonLocation)
+        public async Task<bool> AddWatch(BeanTeaWatchDto watch)
         {
             try
             {
-                await _apClient.SendRequest(HttpMethod.Post, "https://webhook.site/888b59c7-8db0-4795-833c-26afe22e65bc", JsonConvert.SerializeObject(jsonLocation));
+                var url = "https://beanteaapi20231125145500.azurewebsites.net/api/watching?code=hHQCD9HODN2GZN8Pd3nmyBFyP5InQQWDey_mQG0dEeQnAzFuPizEDg==";
+
+                await _apClient.SendRequest(HttpMethod.Post, url, JsonConvert.SerializeObject(watch));
+                
                 return true;
             }
             catch (Exception ex)
