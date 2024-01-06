@@ -4,6 +4,9 @@ using MauiAuth0App.Auth0;
 using Microsoft.Extensions.Logging;
 using BeanTea.Services;
 using BeanTea.Services.BeanTeaServices;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
+
 
 namespace BeanTea
 {
@@ -28,6 +31,23 @@ namespace BeanTea
 		    builder.Logging.AddDebug();
 #endif
 
+
+            var assembly = Assembly.GetExecutingAssembly();
+            using var stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.appsettings.json");
+
+           // using var stream = FileSystem.OpenAppPackageFileAsync("appsettings.json").Result;
+           // using var reader = new StreamReader(stream);
+
+           
+
+           // using var stream = assembly.GetFile("appsettings.json");
+
+            var config = new ConfigurationBuilder()
+                        .AddJsonStream(stream)
+                        .Build();
+
+            builder.Configuration.AddConfiguration(config);
+
             builder.Services.AddSingleton<MainPage>();
            // builder.Services.AddSingleton<RentingPage>();
             builder.Services.AddSingleton<LoginPage>();
@@ -35,6 +55,7 @@ namespace BeanTea
             builder.Services.AddSingleton<AuthUserServices>();
             builder.Services.AddSingleton<WatchService>();
             builder.Services.AddSingleton<PostingsServices>();
+          
 
             builder.Services.AddSingleton(new Auth0Client(new()
             {

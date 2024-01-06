@@ -10,6 +10,7 @@ using BeanTea.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.ObjectModel;
 using BeanTea.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace BeanTea
 {
@@ -23,14 +24,16 @@ namespace BeanTea
         PostingsServices _postingsServices;
         int maxBudget = 0;
         int minBudget = 0;
+        IConfiguration _config;
 
-        public MainPage(Auth0Client client, WatchService watchService, PostingsServices postingsServices)
+        public MainPage(Auth0Client client, WatchService watchService, PostingsServices postingsServices, IConfiguration configuration)
         {
             InitializeComponent();
             auth0Client = client;
             _watchservice = watchService;
             _postingsServices = postingsServices;
             _watchEntity = new AddWatchViewModel();
+            _config = configuration;
 
             BindingContext = _watchEntity;        
 
@@ -123,7 +126,7 @@ namespace BeanTea
             lblSearchingWarning.Text = $"Loading: {searchLocations.Count()}";
 
             var observableCollection = new ObservableCollection<SearchResultViewModel>(searchLocations);
-            await Navigation.PushAsync(new SearchResultsPage(observableCollection)); 
+            await Navigation.PushAsync(new SearchResultsPage(observableCollection, _config)); 
 
         }
 
