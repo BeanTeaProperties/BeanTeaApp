@@ -1,5 +1,6 @@
 using BeanTea.Services.BeanTeaServices;
 using BeanTea.ViewModels;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 
@@ -7,15 +8,16 @@ namespace BeanTea;
 
 public partial class SearchResultsPage : ContentPage
 {
-	public ObservableCollection<SearchResultViewModel> Result; 
-    PostingsServices postServices = new PostingsServices();
+	public ObservableCollection<SearchResultViewModel> Result;
+    PostingsServices postServices;
 
-	public SearchResultsPage(ObservableCollection<SearchResultViewModel> LocationData)
+
+    public SearchResultsPage(ObservableCollection<SearchResultViewModel> LocationData, IConfiguration configuration)
 	{
         InitializeComponent();
         Result = LocationData;
-
-	}
+        postServices = new PostingsServices(configuration); 
+    }
 
     protected override void OnAppearing()
     {

@@ -8,15 +8,6 @@
 
         <Label></Label>
         <Label></Label>
-        <!--<Image
-            x:Name="imageUserImage"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            HeightRequest="200"
-            WidthRequest="200"
-            >           
-            
-        </Image>-->
 
         <Label></Label>
 
@@ -52,4 +43,6 @@
              HorizontalOptions="Center"
              IsVisible="false" />
     </VerticalStackLayout>
+    
+    
 </ContentPage>

@@ -8,6 +8,8 @@ using BeanTea.Models;
 using Newtonsoft.Json;
 using BeanTea.ViewModels;
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Configuration;
+//using UIKit;
 
 namespace BeanTea.Services.BeanTeaServices
 {
@@ -15,10 +17,16 @@ namespace BeanTea.Services.BeanTeaServices
     public class PostingsServices
     {
         ApiClient apiClient;
+        IConfiguration _config;
+        string beanTeaUrl;
+        string beanTeaApiKey;
 
-        public PostingsServices()
+        public PostingsServices(IConfiguration configuration)
         {
             apiClient = new ApiClient();
+            _config = configuration;
+            beanTeaApiKey = _config.GetConnectionString("BeanTeaApiKey");
+            beanTeaUrl = _config.GetConnectionString("BeanTeaApiUrl");
         }
 
         public async Task<bool> IsItADeadLink(string url)
@@ -40,7 +48,7 @@ namespace BeanTea.Services.BeanTeaServices
 
         public async Task RemovePosting(string posting)
         {
-            var url = "https://beanteaapi20231125145500.azurewebsites.net/api/renting?code=hHQCD9HODN2GZN8Pd3nmyBFyP5InQQWDey_mQG0dEeQnAzFuPizEDg==";
+            var url = $"{beanTeaUrl}/api/renting?code={beanTeaApiKey}";
 
             await apiClient.SendRequest(HttpMethod.Delete, url, posting);
         }
@@ -53,7 +61,7 @@ namespace BeanTea.Services.BeanTeaServices
                 Max = max
             };
 
-            var url = "https://beanteaapi20231125145500.azurewebsites.net/api/renting?code=hHQCD9HODN2GZN8Pd3nmyBFyP5InQQWDey_mQG0dEeQnAzFuPizEDg==";
+            var url = $"{beanTeaUrl}/api/renting?code={beanTeaApiKey}";
 
             var response = await apiClient.SendRequest(HttpMethod.Post, url, JsonConvert.SerializeObject(request));
             var responseString = await response.Content.ReadAsStringAsync();
