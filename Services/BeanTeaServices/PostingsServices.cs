@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using BeanTea.ViewModels;
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Maui.Controls;
+using System.Reflection;
 //using UIKit;
 
 namespace BeanTea.Services.BeanTeaServices
@@ -51,6 +53,26 @@ namespace BeanTea.Services.BeanTeaServices
             var url = $"{beanTeaUrl}/api/renting?code={beanTeaApiKey}";
 
             await apiClient.SendRequest(HttpMethod.Delete, url, posting);
+        }
+
+        public async Task<List<WatchFoundViewModel>> ReturnWatchForUser(string email)
+        {
+            var url = $"{beanTeaUrl}/api/watch?code={beanTeaApiKey}";
+
+            var body = new
+            {
+                email = email
+            };
+
+            var assembly = Assembly.GetExecutingAssembly();
+            using var stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.fakeWatchData.json");
+            var sr = new StreamReader(stream);  
+            var data = sr.ReadToEnd();
+            var jsonData = JsonConvert.DeserializeObject<List<WatchFoundViewModel>>(data);
+
+            return jsonData;
+
+          //  await apiClient.SendRequest(HttpMethod.Get, url);
         }
 
         public async Task<List<LocationDataDto>> ReturnPostings(int min, int max)
