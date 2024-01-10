@@ -61,12 +61,14 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="fakeWatchData.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="appsettings.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	  <EmbeddedResource Include="fakeWatchData.json" />
 	</ItemGroup>
 
 	<ItemGroup>

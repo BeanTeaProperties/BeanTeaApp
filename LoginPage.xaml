@@ -2,8 +2,63 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BeanTea.LoginPage"
-             Title="LoginPage">
+             Title="LoginPage"
+             BindingContext="WatchFoundViewModel">
+
+
     <VerticalStackLayout>
+
+        <!-- Horizontal layout for buttons -->
+        <StackLayout Orientation="Horizontal" Padding="20" HorizontalOptions="End">
+            
+            
+            <Button Text="Log in"
+                    x:Name="LogInBtn"
+                    Clicked="Sign_In_Button_Clicked"
+                    IsVisible="true"
+                    Padding="10"
+                    />
+            <Button Text="Log out"
+                    x:Name="LogOutBtn"
+                    Clicked="Sign_Out_Button_Clicked"
+                    IsVisible="false"
+                    Padding="10"
+                    />
+            
+            
+        </StackLayout>
+        
+        <Label x:Name="SignedUserLabel" 
+               FontSize="Medium"
+               Padding="20"></Label>
+
+        <!-- CollectionView for listing items -->
+        <CollectionView x:Name="WatchFoundCollection"
+                        VerticalOptions="FillAndExpand"
+                        HeightRequest="700">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                          <!-- Define your item template here -->
+                        <Label Text="{Binding Title}"/>
+                        <Label Text="{Binding Price}"/>
+
+                        <HorizontalStackLayout Padding="10">
+                            <Button Text="View" VerticalOptions="Start" Clicked="View_Watch_Clicked"></Button>
+                            <Button Text="Remove" VerticalOptions="End" Margin="10,0,0,0"></Button>
+                        </HorizontalStackLayout>
+              
+
+                        <!-- Add other item properties you want to display -->
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+
+</ContentPage>
+<!--<VerticalStackLayout x:Name="LoginScreen">
 
 
         <Label></Label>
@@ -42,7 +97,31 @@
              VerticalOptions="Center" 
              HorizontalOptions="Center"
              IsVisible="false" />
+
+        <Label Text="Rawr"></Label>
+  
+ 
+            <CollectionView x:Name="WatchFoundCollection" IsVisible="True">
+                --><!-- Define your item template here --><!--
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        --><!--<StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="=ViewAWatch=" />
+                        </StackLayout.GestureRecognizers>--><!--
+                        <StackLayout>
+                            --><!-- Bind to properties of your collection items here --><!--
+                            <Label Text="{Binding Title}" />
+                            <Label Text="{Binding Price}" />
+                            --><!-- Add more UI elements as needed --><!--
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+  
+
     </VerticalStackLayout>
+
     
-    
-</ContentPage>
+
+
+</ContentPage>-->

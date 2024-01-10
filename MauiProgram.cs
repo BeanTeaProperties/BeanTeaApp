@@ -35,12 +35,6 @@ namespace BeanTea
             var assembly = Assembly.GetExecutingAssembly();
             using var stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.appsettings.json");
 
-           // using var stream = FileSystem.OpenAppPackageFileAsync("appsettings.json").Result;
-           // using var reader = new StreamReader(stream);
-
-           
-
-           // using var stream = assembly.GetFile("appsettings.json");
 
             var config = new ConfigurationBuilder()
                         .AddJsonStream(stream)
@@ -55,7 +49,7 @@ namespace BeanTea
             builder.Services.AddSingleton<AuthUserServices>();
             builder.Services.AddSingleton<WatchService>();
             builder.Services.AddSingleton<PostingsServices>();
-          
+                      
 
             builder.Services.AddSingleton(new Auth0Client(new()
             {
