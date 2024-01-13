@@ -30,7 +30,7 @@ namespace BeanTea
     #if DEBUG
 		    builder.Logging.AddDebug();
 #endif
-
+            ///testing the PR
 
             var assembly = Assembly.GetExecutingAssembly();
             using var stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.appsettings.json");
