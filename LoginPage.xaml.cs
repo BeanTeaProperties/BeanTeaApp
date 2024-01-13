@@ -5,6 +5,7 @@ using MauiAuth0App.Auth0;
 using Microsoft.Maui.ApplicationModel.Communication;
 using Microsoft.Maui.Graphics;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 
 namespace BeanTea;
@@ -14,25 +15,27 @@ public partial class LoginPage : ContentPage
     private readonly Auth0Client _auth0Client;
     private readonly AuthUserServices _authUserService;
     private readonly PostingsServices _postingsServices;
-    private string picture { get; set; }
+    private readonly WatchService _watchService;
+    public ObservableCollection<WatchFoundViewModel> _watchFoundViewModels;
+ 
 
     public LoginPage()
     { 
         InitializeComponent(); 
     }
 
-    public LoginPage(Auth0Client client, AuthUserServices authUserService, PostingsServices postingsServices)
+    public LoginPage(Auth0Client client, AuthUserServices authUserService, PostingsServices postingsServices, WatchService watchService)
 	{
 		InitializeComponent();
         _auth0Client = client;
         _authUserService = authUserService;
         _postingsServices = postingsServices;
+        _watchService = watchService;
 
     }
 
     private async void Sign_Out_Button_Clicked(object sender, EventArgs e)
     {
-
         await _auth0Client.LogoutAsync();
         WatchFoundCollection.ItemsSource = null;
         SignedUserLabel.Text = string.Empty;
@@ -66,9 +69,10 @@ public partial class LoginPage : ContentPage
 
         await _authUserService.CreateUser(email);
      
-        var watchFound = await _postingsServices.ReturnWatchForUser(email);     
+        var watchFound = await _watchService.GetWatches(email);  
+        _watchFoundViewModels = new ObservableCollection<WatchFoundViewModel>(watchFound);
 
-        WatchFoundCollection.ItemsSource = watchFound;
+        WatchFoundCollection.ItemsSource = _watchFoundViewModels;
 
         var totalFoundText = $" Found a total of {watchFound.Count} properties in your area.";
 
@@ -91,5 +95,17 @@ public partial class LoginPage : ContentPage
         {
             await Launcher.OpenAsync(new Uri(item.Url));
         }
+    }
+
+    private async void Remove_Watch_Clicked(object sender, EventArgs e)
+    {
+        var layout = (BindableObject)sender;
+        var item = (WatchFoundViewModel)layout.BindingContext;
+
+        item.Email = await SecureStorage.GetAsync("email");
+
+        await _watchService.DeleteWatch(item);
+        _watchFoundViewModels.Remove(item);
+            
     }
 }
