@@ -1,5 +1,6 @@
 ﻿using BeanTea.Infrastructer;
 using BeanTea.Models;
+using BeanTea.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -25,11 +26,30 @@ namespace BeanTea.Services.BeanTeaServices
             beanTeaBaseUrl = _config.GetConnectionString("BeanTeaApiUrl");
         }   
 
+        public async Task<List<WatchFoundViewModel>> GetWatches(string email)
+        {
+            try
+            {
+                var url = $"{beanTeaBaseUrl}/api/getwatches?code={beanTeaApiKey}";
+                var body = @"{""email"":"""+email+@"""}";
+
+                var response = await _apClient.SendRequest(HttpMethod.Get, url, body);
+                var res = await response.Content.ReadAsStringAsync();
+
+                var watches = JsonConvert.DeserializeObject<List<WatchFoundViewModel>>(res);
+
+                return watches;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> AddWatch(BeanTeaWatchDto watch)
         {
             try
             {
-                // ConfigApp code
                 var url = $"{beanTeaBaseUrl}/api/watching?code={beanTeaApiKey}";
 
                 await _apClient.SendRequest(HttpMethod.Post, url, JsonConvert.SerializeObject(watch));
@@ -41,5 +61,21 @@ namespace BeanTea.Services.BeanTeaServices
                return false;
             }
         }
+
+        public async Task DeleteWatch(WatchFoundViewModel watch)
+        {
+            try
+            {
+                // ConfigApp code
+                var url = $"{beanTeaBaseUrl}/api/deletewatch?code={beanTeaApiKey}";
+
+                await _apClient.SendRequest(HttpMethod.Delete, url, JsonConvert.SerializeObject(watch));
+                                
+            }
+            catch (Exception ex)
+            {
+               
+            }
+        }   
     }
 }

@@ -23,8 +23,7 @@
                     Clicked="Sign_Out_Button_Clicked"
                     IsVisible="false"
                     Padding="10"
-                    />
-            
+                    />            
             
         </StackLayout>
         
@@ -46,9 +45,8 @@
 
                         <HorizontalStackLayout Padding="10">
                             <Button Text="View" VerticalOptions="Start" Clicked="View_Watch_Clicked"></Button>
-                            <Button Text="Remove" VerticalOptions="End" Margin="10,0,0,0"></Button>
-                        </HorizontalStackLayout>
-              
+                            <Button Text="Remove" VerticalOptions="End" Clicked="Remove_Watch_Clicked" Margin="10,0,0,0"></Button>
+                        </HorizontalStackLayout>            
 
                         <!-- Add other item properties you want to display -->
                     </StackLayout>
@@ -58,70 +56,3 @@
     </VerticalStackLayout>
 
 </ContentPage>
-<!--<VerticalStackLayout x:Name="LoginScreen">
-
-
-        <Label></Label>
-        <Label></Label>
-
-        <Label></Label>
-
-        <Label 
-            Text=""
-            x:Name="lblSignedUser"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" >
-
-        </Label>
-        
-        
-        <Label 
-            Text="Login"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label></Label>
-
-        <Button  
-            x:Name="btnSignIn"
-            Clicked="Sign_In_Button_Clicked"
-            Text="Sign In or Sign Up"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-
-        <Label></Label>
-        <Label></Label>
-        <Button  
-             x:Name="btnSignOut"
-             Clicked="Sign_Out_Button_Clicked"
-             Text="Sign Out"
-             VerticalOptions="Center" 
-             HorizontalOptions="Center"
-             IsVisible="false" />
-
-        <Label Text="Rawr"></Label>
-  
- 
-            <CollectionView x:Name="WatchFoundCollection" IsVisible="True">
-                --><!-- Define your item template here --><!--
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        --><!--<StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="=ViewAWatch=" />
-                        </StackLayout.GestureRecognizers>--><!--
-                        <StackLayout>
-                            --><!-- Bind to properties of your collection items here --><!--
-                            <Label Text="{Binding Title}" />
-                            <Label Text="{Binding Price}" />
-                            --><!-- Add more UI elements as needed --><!--
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-  
-
-    </VerticalStackLayout>
-
-    
-
-
-</ContentPage>-->

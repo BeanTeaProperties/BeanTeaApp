@@ -7,15 +7,23 @@ using System.Threading.Tasks;
 
 namespace BeanTea.ViewModels
 {
-    public class WatchFoundViewModel 
+    public partial class WatchFoundViewModel : ObservableObject
     {
-      
-        public string Title { get; set; }
-       
-        public string Area { get; set; }
-        public string Price { get; set; }
 
-        public string Url { get; set; }
+        [ObservableProperty]
+        public string title;
+
+        [ObservableProperty]
+        public string area;
+
+        [ObservableProperty]
+        public string price;
+
+        [ObservableProperty]
+        public string url;
+
+        [ObservableProperty]
+        public string email;
 
     }
 }
