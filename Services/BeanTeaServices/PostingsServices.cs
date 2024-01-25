@@ -49,7 +49,7 @@ namespace BeanTea.Services.BeanTeaServices
 
         public async Task RemovePosting(string posting)
         {
-            var url = $"{beanTeaUrl}/api/renting?code={beanTeaApiKey}";
+            var url = $"{beanTeaUrl}/api/deletewatch?code={beanTeaApiKey}";
 
             await apiClient.SendRequest(HttpMethod.Delete, url, posting);
         }

@@ -27,6 +27,26 @@ namespace BeanTea.Services.BeanTeaServices
             beanTeaBaseUrl = _config.GetConnectionString("BeanTeaApiUrl");
         }   
 
+        public async Task<List<WatchFoundViewModel>> GetWatches(string email)
+        {
+            try
+            {
+                var url = $"{beanTeaBaseUrl}/api/getwatches?code={beanTeaApiKey}";
+                var body = @"{""email"":"""+email+@"""}";
+
+                var response = await _apClient.SendRequest(HttpMethod.Get, url, body);
+                var res = await response.Content.ReadAsStringAsync();
+
+                var watches = JsonConvert.DeserializeObject<List<WatchFoundViewModel>>(res);
+
+                return watches;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> AddWatch(BeanTeaWatchDto watch)
         {
             try
@@ -40,74 +60,6 @@ namespace BeanTea.Services.BeanTeaServices
             catch (Exception ex)
             {
                return false;
-            }
-        }
-
-        //public async Task<List<WatchFoundViewModel>> ReturnWatchForUser(string email)
-        //{
-        //    var url = $"{beanTeaUrl}/api/watch?code={beanTeaApiKey}";
-
-        //    var body = new
-        //    {
-        //        email = email
-        //    };
-
-        //    var assembly = Assembly.GetExecutingAssembly();
-        //    using var stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.fakeWatchData.json");
-        //    var sr = new StreamReader(stream);
-        //    var data = sr.ReadToEnd();
-        //    var jsonData = JsonConvert.DeserializeObject<List<WatchFoundViewModel>>(data);
-
-        //    return jsonData;
-
-        //}
-
-        
-        public async Task<List<WatchFoundViewModel>> GetUserWatchs(string email)
-        {
-            try
-            {
-                /// var url = $"{beanTeaBaseUrl}/api/watchfound?code={beanTeaApiKey}";
-
-                //string url = "https://beanteaapi20231125145500.azurewebsites.net/api/watchfound?code=hHQCD9HODN2GZN8Pd3nmyBFyP5InQQWDey_mQG0dEeQnAzFuPizEDg==";
-                //string body = "{\"email\":\"" + email + "\"}";
-
-
-                //var json = new
-                //{
-                //    email = $"{email}"
-                //};
-
-                // var test = json.ToString();
-
-                //    string jsonSent = JsonConvert.SerializeObject(json);
-
-                var response = await _apClient.DeleteWatch();
-                //var response = await _apClient.SendRequest(HttpMethod.Get, url, body);
-                var responseString = await response.Content.ReadAsStringAsync();
-                var watches = JsonConvert.DeserializeObject<List<WatchFoundViewModel>>(responseString);
-
-                return watches;
-
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-
-        }
-
-        public async Task DeleteWatch(BeanTeaWatchDto deleteWatch)
-        {
-            try
-            {
-                var url = $"{beanTeaBaseUrl}/api/watchfound?code={beanTeaApiKey}";
-
-                await _apClient.SendRequest(HttpMethod.Delete, url, JsonConvert.SerializeObject(deleteWatch));
-            }
-            catch (Exception ex)
-            {
-                throw;
             }
         }
     }
