@@ -1,11 +1,14 @@
 ﻿using BeanTea.Infrastructer;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BeanTea.Services.BeanTeaServices
 {
@@ -31,6 +34,17 @@ namespace BeanTea.Services.BeanTeaServices
             };
                        
             await _apiClient.SendRequest(HttpMethod.Post, $"{url}/api/user?code={apiKey}", JsonSerializer.Serialize(json));
+        }
+
+        public async Task<string> DecodeJwtToJSON(string jwtToken)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(jwtToken) as JwtSecurityToken;
+
+            // Serialize the payload to JSON
+            var payloadJson = JsonConvert.SerializeObject(jsonToken?.Payload, Formatting.Indented);
+
+            return payloadJson;
         }
     }
 }

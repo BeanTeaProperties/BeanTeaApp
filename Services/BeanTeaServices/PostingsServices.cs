@@ -15,7 +15,6 @@ using System.Reflection;
 
 namespace BeanTea.Services.BeanTeaServices
 {
-
     public class PostingsServices
     {
         ApiClient apiClient;
@@ -72,7 +71,13 @@ namespace BeanTea.Services.BeanTeaServices
 
             return jsonData;
 
-          //  await apiClient.SendRequest(HttpMethod.Get, url);
+        }
+
+        public async Task DeleteWatchFound(WatchFoundViewModel watch)
+        {
+            var url = $"{beanTeaUrl}/api/watch?code={beanTeaApiKey}";
+
+            await apiClient.SendRequest(HttpMethod.Delete, url, JsonConvert.SerializeObject(watch));
         }
 
         public async Task<List<LocationDataDto>> ReturnPostings(int min, int max)
@@ -137,10 +142,6 @@ namespace BeanTea.Services.BeanTeaServices
             var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             return EarthRadius * c;
         }
-
-
-
-
 
 
     }

@@ -1,3 +1,4 @@
+using BeanTea.Models;
 using BeanTea.Services.BeanTeaServices;
 using BeanTea.ViewModels;
 using IdentityModel.OidcClient;
@@ -14,6 +15,7 @@ public partial class LoginPage : ContentPage
     private readonly Auth0Client _auth0Client;
     private readonly AuthUserServices _authUserService;
     private readonly PostingsServices _postingsServices;
+    private readonly WatchService _watchService;
     private string picture { get; set; }
 
     public LoginPage()
@@ -21,13 +23,53 @@ public partial class LoginPage : ContentPage
         InitializeComponent(); 
     }
 
-    public LoginPage(Auth0Client client, AuthUserServices authUserService, PostingsServices postingsServices)
+    public LoginPage(Auth0Client client, AuthUserServices authUserService, PostingsServices postingsServices, WatchService watchService)
 	{
 		InitializeComponent();
         _auth0Client = client;
         _authUserService = authUserService;
         _postingsServices = postingsServices;
+        _watchService = watchService;
 
+       // isUserLoggedIn();
+
+    }
+
+    private bool isUserLoggedIn()
+    {
+        var json = SecureStorage.GetAsync("userprofile").Result;
+
+        if (json == null)
+        {
+            return false;
+        }
+        else
+        {
+            LoggedInView();
+            return true;
+        }            
+    }
+
+    private void LoggedInView()
+    {
+        var json = SecureStorage.GetAsync("userprofile").Result;
+        var userProfile = JsonConvert.DeserializeObject<UserProfile>(json);
+
+        LogOutBtn.IsVisible = true;
+        LogInBtn.IsVisible = false;
+
+        var watchFound = _postingsServices.ReturnWatchForUser(userProfile.Email).Result;
+        WatchFoundCollection.ItemsSource = watchFound;
+
+        SignedUserLabel.Text = $"Hi {userProfile.GivenName}, Here are you latest watches.";
+    }
+
+    private async void Delete_Watch_Clicked(object sender, EventArgs e)
+    {
+        var layout = (BindableObject)sender;
+        var item = (WatchFoundViewModel)layout.BindingContext;
+
+        await _postingsServices.DeleteWatchFound(item);
     }
 
     private async void Sign_Out_Button_Clicked(object sender, EventArgs e)
@@ -44,20 +86,23 @@ public partial class LoginPage : ContentPage
         SecureStorage.Remove("auth-token");
         SecureStorage.Remove("email");
         SecureStorage.Remove("picture");
+        SecureStorage.Remove("user-profile");
     }
 
     private async void Sign_In_Button_Clicked(object sender, EventArgs e)
     {
         var loginResult = await _auth0Client.LoginAsync();
 
+        var jsonJwt = await _authUserService.DecodeJwtToJSON(loginResult.IdentityToken.ToString());
+        var userProfile = JsonConvert.DeserializeObject<UserProfile>(jsonJwt);
         var email = loginResult.User.Identities.FirstOrDefault().Claims.FirstOrDefault(x => x.Type == "email").Value;
 
+        await SecureStorage.SetAsync("user-profile", jsonJwt);
         await SecureStorage.SetAsync("access-token", loginResult.AccessToken);
         await SecureStorage.SetAsync("auth-token", loginResult.AccessToken);
         await SecureStorage.SetAsync("email", email);
 
-
-        var welcomeMessage = $"Welcome, {loginResult.User.Identity.Name}. Here are your latest form your watched areas.";
+        var welcomeMessage = $"Welcome {userProfile.GivenName}, Here are your latest form your watched areas.";
         string renderingWarning = " Loading your watches.....";
 
         SignedUserLabel.Text = welcomeMessage + renderingWarning;
@@ -65,9 +110,8 @@ public partial class LoginPage : ContentPage
         LogInBtn.IsVisible = false;
 
         await _authUserService.CreateUser(email);
-     
-        var watchFound = await _postingsServices.ReturnWatchForUser(email);     
 
+        var watchFound = await _watchService.GetUserWatchs(userProfile.Email);
         WatchFoundCollection.ItemsSource = watchFound;
 
         var totalFoundText = $" Found a total of {watchFound.Count} properties in your area.";
