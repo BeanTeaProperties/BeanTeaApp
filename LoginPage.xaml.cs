@@ -38,35 +38,6 @@ public partial class LoginPage : ContentPage
 
     }
 
-    private bool isUserLoggedIn()
-    {
-        var json = SecureStorage.GetAsync("userprofile").Result;
-
-        if (json == null)
-        {
-            return false;
-        }
-        else
-        {
-            LoggedInView();
-            return true;
-        }
-    }
-
-    private void LoggedInView()
-    {
-        var json = SecureStorage.GetAsync("userprofile").Result;
-        var userProfile = JsonConvert.DeserializeObject<UserProfile>(json);
-
-        LogOutBtn.IsVisible = true;
-        LogInBtn.IsVisible = false;
-
-        var watchFound = _postingsServices.ReturnWatchForUser(userProfile.Email).Result;
-        WatchFoundCollection.ItemsSource = watchFound;
-
-        SignedUserLabel.Text = $"Hi {userProfile.GivenName}, Here are you latest watches.";
-    }
-
     private async void Delete_Watch_Clicked(object sender, EventArgs e)
     {
         var layout = (BindableObject)sender;
@@ -133,6 +104,10 @@ public partial class LoginPage : ContentPage
         {
             await _postingsServices.RemovePosting(JsonConvert.SerializeObject(item));
             await DisplayAlert("Unfortunately this listing is no longer active.", "Thanks for bringing this to our attention we will de list it.", "Back");
+
+            item.Email = await SecureStorage.GetAsync("email");
+
+            await _watchService.DeleteUserFoundWatch(item.Email, item.Url);
             _watchFoundViewModels.Remove(item);
         }
         else
@@ -143,15 +118,13 @@ public partial class LoginPage : ContentPage
 
     private async void Remove_Watch_Clicked(object sender, EventArgs e)
     {
-        //var layout = (BindableObject)sender;
-        //var item = (WatchFoundViewModel)layout.BindingContext;
+        var layout = (BindableObject)sender;
+        var item = (WatchFoundViewModel)layout.BindingContext;
 
-        //item.Email = await SecureStorage.GetAsync("email");
+        item.Email = await SecureStorage.GetAsync("email");
 
-        //await _watchService.DeleteWatch(item);
-        //_watchFoundViewModels.Remove(item);
-
-        ////}
+        await _watchService.DeleteUserFoundWatch(item.Email, item.Url);
+        _watchFoundViewModels.Remove(item);       
     }
 
 }

@@ -62,5 +62,28 @@ namespace BeanTea.Services.BeanTeaServices
                return false;
             }
         }
+
+        internal async Task DeleteUserFoundWatch(string email, string url)
+        {
+            try
+            {
+                var requestUrl = $"{beanTeaBaseUrl}/api/deletewatch?code={beanTeaApiKey}";
+
+                var DeleteUserFoundRequest = new
+                {
+                    Email = email,
+                    Url = url
+                };
+
+                string json = JsonConvert.SerializeObject(DeleteUserFoundRequest);
+
+                var response = await _apClient.SendRequest(HttpMethod.Delete, requestUrl, json);
+               
+            }
+            catch (Exception ex)
+            {
+                var test = ex.Message.ToString();
+            }
+        }
     }
 }
