@@ -14,9 +14,20 @@
                     </StackLayout.GestureRecognizers>
 
 
+
                     <Label Text="{Binding Title}"></Label>
 
-                    <Label Text="{Binding Price, StringFormat='${0}'}" ></Label>
+                    <Label Text="{Binding Price, StringFormat='Per Month: ${0}'}" ></Label>
+
+                    <HorizontalStackLayout Padding="10">
+                        <Button Text="View" VerticalOptions="End" Clicked="Button_Clicked_View_Property"></Button>
+                     </HorizontalStackLayout>
+                                           
+                                           
+                    <BoxView HeightRequest="1" 
+                        BackgroundColor="Gray" 
+                        HorizontalOptions="FillAndExpand" />
+
 
                 </StackLayout>
             </DataTemplate>

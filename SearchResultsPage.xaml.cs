@@ -26,6 +26,8 @@ public partial class SearchResultsPage : ContentPage
         itemsCollectionView.ItemsSource = Result;
     }
 
+    
+
     private async void OnTapped(object sender, TappedEventArgs e)
     {
         var layout = (BindableObject)sender;
@@ -43,4 +45,25 @@ public partial class SearchResultsPage : ContentPage
         } 
 
     }
+
+    private async void Button_Clicked_View_Property(object sender, EventArgs e)
+    {
+        var layout = (BindableObject)sender;
+        var item = (SearchResultViewModel)layout.BindingContext;
+
+        if (await postServices.IsItADeadLink(item.Url))
+        {
+
+
+            await postServices.RemovePosting(JsonConvert.SerializeObject(item));
+            await DisplayAlert("Unfortunately this listing is no longer active.", "Thanks for bringing this to our attention we will de list it.", "Back");
+            Result.Remove(item);
+        }
+        else
+        {
+            await Launcher.OpenAsync(new Uri(item.Url));
+        }
+    }
+
+
 }
