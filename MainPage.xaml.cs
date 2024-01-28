@@ -23,7 +23,7 @@ namespace BeanTea
         AddWatchViewModel _watchEntity;
         PostingsServices _postingsServices;
         int maxBudget = 0;
-        int minBudget = 0;
+        int propertyType = 0;
         IConfiguration _config;
 
         public MainPage(Auth0Client client, WatchService watchService, PostingsServices postingsServices, IConfiguration configuration)
@@ -108,12 +108,10 @@ namespace BeanTea
         {
             lblSearchingWarning.Text = "Searching....";
 
-            if (minBudget > maxBudget)
-            {
-                minBudget = maxBudget;
-            }
+   
+            var result = await _postingsServices.ReturnPostings(propertyType, maxBudget);
 
-            var result = await _postingsServices.ReturnPostings(minBudget, maxBudget);
+            result = result.Where(x => x.PropertyType == (PropertyType)propertyType).ToList();
 
             var searchLocations = await _postingsServices.FilterSearchResult(result, selectedLocation, (int)distance / 1000);
 
@@ -141,15 +139,26 @@ namespace BeanTea
         }
 
 
-        private void BudgetMinSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+
+        private void PropertyTypeSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            lblSearchingWarning.Text = "Select an Area";
 
-            var newStep = Math.Round(e.NewValue / 100) * 100;
-            minBudget = (int)newStep;
+            var newValue = Convert.ToInt32(e.NewValue);
 
-            lblMinBudget.Text = $"${(int)newStep}";
+            var propertyType = (PropertyType)newValue;
+
+            if (propertyType == PropertyType.Shared || propertyType == PropertyType.Studio)
+            {
+                lblMinBudget.Text = propertyType.ToString();
+            }
+            else
+            {
+                lblMinBudget.Text = $"{propertyType.ToString()} Bedrooms";
+            }
+
+            this.propertyType = (int)newValue;
+
+    
         }
-
     }
 }

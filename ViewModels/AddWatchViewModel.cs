@@ -21,6 +21,9 @@ namespace BeanTea.ViewModels
         [ObservableProperty]
         public int distance;
 
+        [ObservableProperty]
+        public int propertyType;
+
         public string longitude;
         public string latitude;
 

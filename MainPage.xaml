@@ -32,16 +32,16 @@
         
         <Label>
         </Label>
-                    <Label Text="Select an Area" x:Name="lblSearchingWarning" FontSize="Medium" VerticalOptions="Center"  HorizontalOptions="Center"/>
+                    <Label Text="Tap the Map to select an area." x:Name="lblSearchingWarning" FontSize="Medium" VerticalOptions="Center"  HorizontalOptions="Center"/>
             <Label/>
                      <Slider x:Name="SearchSlider" Maximum="10000" Minimum="0" Value="{Binding Distance, Mode=TwoWay}" ValueChanged="Slider_ValueChanged" WidthRequest="350"  BindingContext="{Binding Distance, Mode=TwoWay}"/>
             <Label>
             </Label>
-            <Label>
-            </Label>
-                    <Label Text="Your Min Monthly Budget?" FontSize="Medium" x:Name="lblMinBudget" VerticalOptions="Center" HorizontalOptions="Center" />
+                    <Label Text="Rental Type" FontSize="Medium" x:Name="lblMinBudget" VerticalOptions="Center" HorizontalOptions="Center" />
             <Label/>
-                    <Slider x:Name="PriceMinSlider" Maximum="10000" Minimum="100" Value="{Binding MinBudget, Mode=TwoWay}" ValueChanged="BudgetMinSlider_ValueChanged" WidthRequest="350" />    
+                    <Slider x:Name="PriceMinSlider" Maximum="6" Minimum="0" Value="{Binding MinBudget, Mode=TwoWay}" ValueChanged="PropertyTypeSlider_ValueChanged" WidthRequest="350"/>
+
+                    <!--<Slider x:Name="PriceMinSlider" Maximum="10000" Minimum="100" Value="{Binding MinBudget, Mode=TwoWay}" ValueChanged="BudgetMinSlider_ValueChanged" WidthRequest="350" />-->    
             <Label>                
             </Label>
                     <Label Text="Your Max Monthly Budget?" FontSize="Medium" x:Name="lblMaxBudget" VerticalOptions="Center" HorizontalOptions="Center" />

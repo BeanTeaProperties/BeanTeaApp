@@ -17,7 +17,8 @@ namespace BeanTea.Models
         public object ETag { get; set; }
         public string Title { get; set; }
         public string Price { get; set; }
-
+        public int NumberOfBedrooms { get; set; }
+        public PropertyType PropertyType { get; set; }
         public string Url { get; set; }
     }
 
